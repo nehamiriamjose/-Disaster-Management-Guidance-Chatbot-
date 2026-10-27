@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DisasterShield — Advanced RAG-Powered Disaster Management Assistant</title>
+  <meta name="description" content="Hybrid intelligent disaster management assistant combining a deterministic rule-based emergency engine with an advanced official-document RAG assistant.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- TOP EMERGENCY BANNER -->
+  <aside class="emergency-topbar" role="region" aria-label="National Emergency Numbers">
+    <div class="container topbar-flex">
+      <div class="topbar-left">
+        <span class="pulse-indicator" aria-hidden="true"></span>
+        <span class="topbar-label">Verified Official Emergency Helplines (Pan-India):</span>
+      </div>
+      <div class="topbar-contacts">
+        <a href="tel:112" class="hotline-chip emergency-main" title="National Emergency Support System">
+          <strong>112</strong> <span>All Emergencies</span>
+        </a>
+        <a href="tel:1078" class="hotline-chip" title="National Disaster Response Force">
+          <strong>1078</strong> <span>NDRF Rescue</span>
+        </a>
+        <a href="tel:101" class="hotline-chip" title="Fire & Rescue">
+          <strong>101</strong> <span>Fire</span>
+        </a>
+        <a href="tel:108" class="hotline-chip" title="Ambulance Medical Triage">
+          <strong>108</strong> <span>Ambulance</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN NAVIGATION -->
+  <header class="navbar" role="banner">
+    <div class="container nav-container">
+      <a href="#home" class="brand-logo" id="brandHomeLink" aria-label="DisasterShield Homepage">
+        <div class="logo-shield" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">DisasterShield</span>
+          <span class="brand-tagline">Hybrid Emergency Decision &amp; RAG Knowledge System</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" role="navigation" aria-label="Main Navigation">
+        <button class="nav-btn active" data-tab="home" id="tabHomeBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Assessment</span>
+        </button>
+        <button class="nav-btn" data-tab="chat" id="tabChatBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Emergency Decision Tree</span>
+          <span class="active-badge" id="chatActiveIndicator" style="display:none;">Active</span>
+        </button>
+        <button class="nav-btn rag-nav-highlight" data-tab="rag" id="tabRagBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Knowledge Assistant (RAG)</span>
+        </button>
+        <button class="nav-btn" data-tab="docAdmin" id="tabDocAdminBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          <span>Document Repository</span>
+        </button>
+        <button class="nav-btn" data-tab="checklist" id="tabChecklistBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>72h Go-Bag</span>
+        </button>
+        <button class="nav-btn" data-tab="flowchart" id="tabFlowchartBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <span>Flowchart</span>
+        </button>
+        <button class="nav-btn" data-tab="sources" id="tabSourcesBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Official Sources</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="main-content" id="mainContent">
+
+    <!-- TAB 1: HOME & DISASTER SELECTION -->
+    <section class="tab-pane active" id="paneHome">
+      <!-- HERO BANNER -->
+      <section class="hero-section">
+        <div class="container hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Hybrid Intelligent Architecture: Mode A (Rule-Based) + Mode B (RAG Pipeline)
+          </div>
+          <h1 class="hero-title">Official Disaster Safety &amp; Knowledge Assistant</h1>
+          <p class="hero-subtitle">
+            Combines deterministic rule-based emergency guidance for active high-stakes situations with an advanced
+            Retrieval-Augmented Generation (RAG) assistant answering questions grounded in verified official statutory documents (NDMA, GSI, CWC).
+          </p>
+
+          <div class="hero-features-strip">
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Mode A: 100% Rule-Based Immediate Emergency Trees</span>
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Mode B: FAISS Hybrid Retrieval &amp; Document Citations</span>
+            </div>
+            <div class="feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Official Indian Guidelines (NDMA / GSI / CWC / NDRF)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE SELECTION SWITCHER -->
+      <section class="container mode-switcher-section mt-4">
+        <div class="mode-cards-grid">
+          <div class="mode-selection-card mode-a-card" id="cardChooseModeA">
+            <div class="mode-tag mode-a-tag">Mode A: Active Emergency</div>
+            <h3>Immediate Situational Decision Tree</h3>
+            <p>
+              Use when experiencing an active crisis (shaking, rising floodwater, hillside cracking).
+              Traverses deterministic, rule-based questions with selectable chips to deliver immediate life-safety action.
+            </p>
+            <div class="mode-card-footer">
+              <span class="mode-action-link">Select Disaster Below &darr;</span>
+            </div>
+          </div>
+
+          <div class="mode-selection-card mode-b-card" id="cardChooseModeB">
+            <div class="mode-tag mode-b-tag">Mode B: Knowledge &amp; Preparedness</div>
+            <h3>RAG Document Knowledge Assistant</h3>
+            <p>
+              Ask natural-language questions regarding disaster preparedness, mitigation, emergency kits, and guidelines.
+              Synthesizes grounded answers backed by verified official PDF citations and page numbers.
+            </p>
+            <div class="mode-card-footer">
+              <button class="btn btn-primary btn-sm" id="btnLaunchRAGFromHome">
+                <span>Ask Knowledge Assistant</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DISASTER SELECTION CARDS -->
+      <section class="container disaster-selection-section">
+        <div class="section-header">
+          <span class="section-eyebrow">MODE A: SITUATION-SPECIFIC EMERGENCY GUIDANCE</span>
+          <h2 class="section-title">Select Disaster Scenario</h2>
+          <p class="section-description">Choose the disaster type to start the situation-specific decision tree assessment.</p>
+        </div>
+
+        <div class="cards-grid" id="disasterCardsGrid">
+          <!-- CARD 1: EARTHQUAKE -->
+          <article class="disaster-card" data-disaster="earthquake">
+            <div class="card-badge seismic">Seismic Emergency</div>
+            <div class="card-icon-wrapper seismic-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-icon">
+                <path d="M3 12h3l3-7 4 14 3-7h5"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Earthquake</h3>
+            <p class="card-desc">
+              Immediate life-safety guidance for active tremors, structural damage, trapped individuals, utility fires, and post-shaking evacuation.
+            </p>
+            <div class="card-meta">
+              <span class="meta-tag">Drop, Cover &amp; Hold</span>
+              <span class="meta-tag">USAR Signaling</span>
+              <span class="meta-tag">13 Decision Paths</span>
+            </div>
+            <button class="btn btn-primary start-chat-btn" data-disaster="earthquake" id="btnStartEarthquake">
+              <span>Start Earthquake Assessment</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </article>
+
+          <!-- CARD 2: FLOOD -->
+          <article class="disaster-card" data-disaster="flood">
+            <div class="card-badge hydrological">Hydrological Threat</div>
+            <div class="card-icon-wrapper hydrological-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-icon">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Flood &amp; Flash Flood</h3>
+            <p class="card-desc">
+              Rapid decision logic for rising waters, submerged utility hazards, rooftop rescue signaling, and "Turn Around, Don't Drown" vehicle rules.
+            </p>
+            <div class="card-meta">
+              <span class="meta-tag">Vertical Evacuation</span>
+              <span class="meta-tag">Electrical Hazard</span>
+              <span class="meta-tag">12 Decision Paths</span>
+            </div>
+            <button class="btn btn-primary start-chat-btn" data-disaster="flood" id="btnStartFlood">
+              <span>Start Flood Assessment</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </article>
+
+          <!-- CARD 3: LANDSLIDE -->
+          <article class="disaster-card" data-disaster="landslide">
+            <div class="card-badge geological">Geological Hazard</div>
+            <div class="card-icon-wrapper geological-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-icon">
+                <path d="m2 22 10-14 4 6 6-12"/>
+                <circle cx="18" cy="18" r="2"/>
+                <circle cx="8" cy="19" r="1.5"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Landslide &amp; Debris Flow</h3>
+            <p class="card-desc">
+              Protocols for slope cracking signs, mountain road blockages, active lateral escape sprints, and compact head-shield impact bracing.
+            </p>
+            <div class="card-meta">
+              <span class="meta-tag">Lateral Escape</span>
+              <span class="meta-tag">Debris Dams</span>
+              <span class="meta-tag">10 Decision Paths</span>
+            </div>
+            <button class="btn btn-primary start-chat-btn" data-disaster="landslide" id="btnStartLandslide">
+              <span>Start Landslide Assessment</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <!-- WHY HYBRID SECTION -->
+      <section class="container academic-overview-section">
+        <div class="academic-card">
+          <div class="academic-header">
+            <div class="academic-badge">Academic Architecture Note</div>
+            <h3>Why a Hybrid Architecture (Rule-Based + RAG)?</h3>
+          </div>
+          <div class="academic-body">
+            <p>
+              In life-or-death disaster situations, relying purely on generative LLMs creates unacceptable risks: hallucinated helplines, dangerous evacuation advice, and high network latency. 
+              <strong>DisasterShield</strong> solves this through a dual-mode hybrid architecture:
+            </p>
+            <div class="academic-grid">
+              <div class="academic-point">
+                <strong>Mode A: Rule-Based Emergency Trees</strong>
+                <span>100% deterministic decision logic for active crises. Works offline, guarantees zero hallucinations, and guides the user through critical life-safety branches.</span>
+              </div>
+              <div class="academic-point">
+                <strong>Mode B: RAG Document Assistant</strong>
+                <span>Answers broader preparedness questions grounded strictly in official PDF guidelines with exact page citations and hybrid FAISS retrieval.</span>
+              </div>
+              <div class="academic-point">
+                <strong>Zero Hallucinated Hotlines</strong>
+                <span>Both modes exclusively reference verified emergency hotlines: 112 (ERSS), 1078 (NDRF), 101 (Fire), and 108 (Ambulance).</span>
+              </div>
+              <div class="academic-point">
+                <strong>Local &amp; Secure</strong>
+                <span>Runs 100% locally with zero required paid API keys, protected against prompt injection and arbitrary file execution.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- TAB 2: INTERACTIVE CHATBOT PANEL (MODE A) -->
+    <section class="tab-pane" id="paneChat">
+      <div class="container chat-layout">
+        <!-- CHAT HEADER & CONTROLS -->
+        <div class="chat-header-bar">
+          <div class="chat-disaster-info">
+            <span class="chat-disaster-badge" id="chatDisasterBadge">Active Assessment</span>
+            <h2 class="chat-title" id="chatDisasterTitle">Earthquake Safety Assessment</h2>
+            <div class="chat-step-tracker" id="chatStepTracker">Step 1 of 4</div>
+          </div>
+
+          <div class="chat-actions-group">
+            <button class="btn btn-outline" id="btnRestartChat" title="Reset the assessment to the beginning">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <span>Restart</span>
+            </button>
+            <button class="btn btn-outline" id="btnChangeDisaster" title="Return to disaster selection">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span>Change Disaster</span>
+            </button>
+            <button class="btn btn-outline" id="btnViewFlowchartPath" title="View flowchart for this scenario">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              <span>View Tree</span>
+            </button>
+            <button class="btn btn-secondary" id="btnCopyTranscript" title="Copy conversation transcript to clipboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy Transcript</span>
+            </button>
+            <button class="btn btn-secondary" id="btnDownloadTranscript" title="Download text transcript">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download (.txt)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CHAT CONVERSATION CONTAINER -->
+        <div class="chat-viewport" id="chatViewport" role="log" aria-live="polite">
+          <div class="chat-messages-list" id="chatMessagesList">
+            <!-- Messages injected dynamically by app.js -->
+          </div>
+        </div>
+
+        <!-- SELECTABLE OPTIONS TRAY (PINNED AT BOTTOM) -->
+        <div class="chat-options-tray" id="chatOptionsTray" aria-label="Selectable responses">
+          <div class="options-header">
+            <span class="options-prompt-label">Select your current situation:</span>
+            <span class="options-hint">Click an option below to advance the guidance path</span>
+          </div>
+          <div class="options-buttons-grid" id="optionsButtonsGrid">
+            <!-- Option buttons rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: MODE B - KNOWLEDGE ASSISTANT (RAG) -->
+    <section class="tab-pane" id="paneRag">
+      <div class="container rag-layout">
+        <!-- RAG HEADER -->
+        <div class="rag-header-card">
+          <div class="rag-header-info">
+            <div class="rag-mode-badge">
+              <span class="badge-dot"></span> Mode B: Disaster Knowledge Assistant (RAG Pipeline)
+            </div>
+            <h2 class="rag-title">Official Document-Grounded Q&amp;A</h2>
+            <p class="rag-desc">
+              Ask natural-language questions regarding disaster preparedness, mitigation, and safety.
+              Answers are retrieved using FAISS vector search and sparse keyword matching from official statutory PDF guidelines (NDMA, GSI, CWC, NDRF), complete with traceable page citations.
+            </p>
+          </div>
+
+          <!-- CATEGORY FILTER CHIPS -->
+          <div class="rag-category-filter">
+            <span class="filter-label">Filter Category:</span>
+            <div class="filter-chips-group">
+              <button class="filter-chip active" data-category="">All Categories</button>
+              <button class="filter-chip" data-category="earthquake">Earthquake</button>
+              <button class="filter-chip" data-category="flood">Flood</button>
+              <button class="filter-chip" data-category="landslide">Landslide</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUGGESTED QUESTIONS CHIPS -->
+        <div class="rag-suggestions-box">
+          <span class="suggestions-label">Suggested Questions:</span>
+          <div class="suggestions-chips-row">
+            <button class="suggestion-chip">What precautions should families take for an earthquake kit?</button>
+            <button class="suggestion-chip">What should motorists do during flooding according to turn around dont drown?</button>
+            <button class="suggestion-chip">What are the early warning signs of an impending landslide?</button>
+            <button class="suggestion-chip">How to purify drinking water after flood inundation?</button>
+            <button class="suggestion-chip">What actions are strictly prohibited during active earthquake shaking?</button>
+          </div>
+        </div>
+
+        <!-- RAG CONVERSATION STREAM -->
+        <div class="rag-conversation-viewport" id="ragConversationViewport" role="log" aria-live="polite">
+          <div class="rag-stream-list" id="ragStreamList">
+            <!-- RAG answers rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- RAG INPUT BAR -->
+        <div class="rag-input-tray">
+          <form id="ragQueryForm" class="rag-form">
+            <div class="rag-input-wrapper">
+              <input type="text" id="ragInputText" class="rag-input" placeholder="Ask a disaster preparedness or safety question (e.g., 'What precautions should people take before a landslide?')..." autocomplete="off" required>
+              <button type="submit" class="btn btn-primary rag-submit-btn" id="btnSubmitRAG">
+                <span>Ask Official Docs</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </form>
+          <div class="rag-input-hint">
+            <span>Grounding Assurance: Answers strictly reflect verified official guidelines. For active immediate life emergencies, dial <strong>112</strong> or <strong>1078</strong>.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: DOCUMENT REPOSITORY (ADMIN INGESTION) -->
+    <section class="tab-pane" id="paneDocAdmin">
+      <div class="container docadmin-section">
+        <div class="docadmin-header">
+          <div>
+            <span class="section-eyebrow">ADMINISTRATIVE DOCUMENT REPOSITORY</span>
+            <h2 class="section-title">Official Document Ingestion &amp; Vector Index</h2>
+            <p class="section-description">
+              Upload official PDF guidelines, view indexed documents, inspect extracted pages and chunk statistics, or rebuild the FAISS vector index.
+            </p>
+          </div>
+          <div class="docadmin-actions">
+            <button class="btn btn-outline" id="btnRebuildIndex">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+              <span>Rebuild Vector Index</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- UPLOAD CARD -->
+        <div class="upload-card">
+          <h3 class="upload-card-title">Upload Official Disaster Management PDF</h3>
+          <p class="upload-card-subtitle">
+            Upload verified PDF guidelines from NDMA, GSI, CWC, or state disaster authorities (Max 15 MB). Text will be extracted, validated, chunked, and embedded into the local FAISS index.
+          </p>
+
+          <form id="docUploadForm" class="upload-form">
+            <div class="upload-grid">
+              <div class="form-group file-drop-group">
+                <label for="pdfFileInput" class="file-drop-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:2rem;height:2rem;color:var(--brand-blue);margin-bottom:0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span id="fileDropText">Click or drag official PDF file here</span>
+                  <span class="file-drop-hint">Only genuine text-embedded PDFs accepted (Scanned PDFs will be detected and rejected)</span>
+                </label>
+                <input type="file" id="pdfFileInput" name="file" accept=".pdf" class="file-input-hidden" required>
+              </div>
+
+              <div class="upload-metadata-fields">
+                <div class="form-group">
+                  <label for="docTitleInput" class="form-label">Document Title (Optional)</label>
+                  <input type="text" id="docTitleInput" name="title" class="form-input" placeholder="e.g. NDMA Earthquake Safety Guidelines">
+                </div>
+
+                <div class="form-group">
+                  <label for="docOrgInput" class="form-label">Issuing Organization (Optional)</label>
+                  <input type="text" id="docOrgInput" name="organization" class="form-input" placeholder="e.g. National Disaster Management Authority">
+                </div>
+
+                <div class="form-group">
+                  <label for="docCategorySelect" class="form-label">Disaster Category</label>
+                  <select id="docCategorySelect" name="disaster_category" class="form-select w-100">
+                    <option value="earthquake">Earthquake</option>
+                    <option value="flood">Flood &amp; Flash Flood</option>
+                    <option value="landslide">Landslide &amp; Debris Flow</option>
+                    <option value="general" selected>General Disaster Management</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="docUrlInput" class="form-label">Verified Source URL (Optional)</label>
+                  <input type="url" id="docUrlInput" name="source_url" class="form-input" placeholder="https://ndma.gov.in/guidelines">
+                </div>
+              </div>
+            </div>
+
+            <div class="upload-submit-bar">
+              <button type="submit" class="btn btn-primary" id="btnUploadSubmit">
+                <span>Upload &amp; Index Document</span>
+              </button>
+              <div id="uploadStatusMsg" class="upload-status-msg" style="display:none;"></div>
+            </div>
+          </form>
+        </div>
+
+        <!-- INDEXED DOCUMENTS TABLE -->
+        <div class="indexed-docs-card mt-4">
+          <div class="docs-table-header">
+            <h3>Currently Indexed Official Documents</h3>
+            <span class="docs-count-badge" id="indexedDocsCount">0 documents</span>
+          </div>
+
+          <div class="docs-table-wrapper">
+            <table class="docs-table" id="indexedDocsTable">
+              <thead>
+                <tr>
+                  <th>Document Title</th>
+                  <th>Authority</th>
+                  <th>Category</th>
+                  <th>Pages</th>
+                  <th>Chunks</th>
+                  <th>Size</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="indexedDocsTableBody">
+                <tr>
+                  <td colspan="7" style="text-align:center; color:#64748b; padding:2rem;">Loading indexed document catalog...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: 72-HOUR EMERGENCY GO-BAG CHECKLIST -->
+    <section class="tab-pane" id="paneChecklist">
+      <div class="container checklist-section">
+        <div class="checklist-header">
+          <div>
+            <span class="section-eyebrow">OFFICIAL PREPAREDNESS</span>
+            <h2 class="section-title">72-Hour Emergency Go-Bag Checklist</h2>
+            <p class="section-description">
+              Pack these essential life-support supplies and documentation before a disaster strikes. Recommended by NDMA India.
+            </p>
+          </div>
+
+          <!-- PROGRESS CARD -->
+          <div class="checklist-progress-card">
+            <div class="progress-info">
+              <span class="progress-title">Preparedness Readiness</span>
+              <span class="progress-pct" id="checklistPercentage">0%</span>
+            </div>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="checklistProgressBar" style="width: 0%;"></div>
+            </div>
+            <div class="progress-counter" id="checklistCounter">0 of 0 items packed</div>
+            <button class="btn btn-sm btn-outline mt-2" id="btnResetChecklist">Reset Checklist</button>
+          </div>
+        </div>
+
+        <!-- CATEGORIES LIST -->
+        <div class="checklist-categories-grid" id="checklistCategoriesGrid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: DECISION FLOWCHART VIEWER -->
+    <section class="tab-pane" id="paneFlowchart">
+      <div class="container flowchart-section">
+        <div class="flowchart-header">
+          <div>
+            <span class="section-eyebrow">ACADEMIC DELIVERABLE</span>
+            <h2 class="section-title">Decision Tree Logic Flowchart</h2>
+            <p class="section-description">
+              Comprehensive visual mapping of the deterministic decision branches implemented for the selected disaster scenario.
+            </p>
+          </div>
+
+          <div class="flowchart-selector-group">
+            <label for="flowchartDisasterSelect" class="sr-only">Select Disaster Flowchart</label>
+            <select id="flowchartDisasterSelect" class="form-select">
+              <option value="earthquake" selected>Earthquake Decision Tree</option>
+              <option value="flood">Flood &amp; Flash Flood Decision Tree</option>
+              <option value="landslide">Landslide &amp; Debris Flow Decision Tree</option>
+            </select>
+            <button class="btn btn-outline" id="btnCopyMermaid">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy Mermaid Code</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- FLOWCHART VISUAL VIEW -->
+        <div class="flowchart-container">
+          <div class="flowchart-legend">
+            <span class="legend-item"><span class="legend-box root-box"></span> Step 1: Initial Question</span>
+            <span class="legend-item"><span class="legend-box question-box"></span> Intermediate Decision Branch</span>
+            <span class="legend-item"><span class="legend-box critical-box"></span> Critical Guidance Outcome</span>
+            <span class="legend-item"><span class="legend-box urgent-box"></span> Urgent Guidance Outcome</span>
+            <span class="legend-item"><span class="legend-box normal-box"></span> Standard / Precautionary</span>
+          </div>
+
+          <!-- DYNAMIC TREE BRANCHES CONTAINER -->
+          <div class="tree-visual-wrapper" id="treeVisualWrapper">
+            <!-- Rendered by flowchart.js -->
+          </div>
+
+          <!-- RAW MERMAID CODE VIEW -->
+          <div class="mermaid-code-card mt-4">
+            <div class="mermaid-code-header">
+              <span>Mermaid Diagram Syntax (Directly renderable in GitHub / Markdown docs)</span>
+            </div>
+            <pre class="mermaid-code-pre" id="mermaidCodePre"><code>Loading decision tree structure...</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: OFFICIAL SOURCES & REFERENCES -->
+    <section class="tab-pane" id="paneSources">
+      <div class="container sources-section">
+        <div class="sources-header">
+          <span class="section-eyebrow">STATUTORY COMPLIANCE &amp; SAFETY ASSURANCE</span>
+          <h2 class="section-title">Verified Official Safety References</h2>
+          <p class="section-description">
+            All safety guidelines, distance thresholds, and survival postures are directly sourced from statutory Indian disaster management bodies.
+          </p>
+        </div>
+
+        <!-- EMERGENCY HOTLINES GRID -->
+        <div class="hotlines-block">
+          <h3 class="hotlines-heading">Official Indian Emergency Helpline Directory</h3>
+          <div class="hotlines-grid" id="hotlinesGrid">
+            <!-- Loaded dynamically from sources.json -->
+          </div>
+        </div>
+
+        <!-- STATUTORY SOURCES LIST -->
+        <div class="sources-list" id="sourcesList">
+          <!-- Loaded dynamically from sources.json -->
+        </div>
+
+        <!-- ACADEMIC INTEGRITY NOTE -->
+        <div class="safety-declaration-card mt-4">
+          <h4>Academic &amp; Public Safety Statement</h4>
+          <p>
+            This application is constructed for college coursework demonstrating hybrid rule-based expert systems and document-grounded RAG in crisis guidance.
+            In an actual active emergency, users must always follow direct orders issued on ground by the
+            <strong>National Disaster Response Force (NDRF)</strong>, local police, fire service, and district administration.
+            No automated tool replaces direct civil defense directives.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notification" id="toastNotification" role="alert" aria-live="assertive">
+    <span id="toastMessage">Copied to clipboard!</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="app-footer" role="contentinfo">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <strong>DisasterShield</strong> — Advanced RAG-Powered Disaster Management Assistant
+        <span class="footer-sub">Hybrid Architecture: Deterministic Decision Trees + Document-Grounded RAG Pipeline</span>
+      </div>
+      <div class="footer-right">
+        <span>Derived from NDMA, GSI, CWC &amp; NDRF Protocols</span>
+        <span class="footer-sep">•</span>
+        <a href="#sources" class="footer-link" id="footerSourcesLink">View Official References</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="/static/js/flowchart.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

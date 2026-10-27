@@ -1,0 +1,497 @@
+{
+  "id": "landslide",
+  "name": "Landslide & Debris Flow",
+  "category": "Geological Emergency",
+  "badge": "Mass Movement Threat",
+  "icon": "landslide",
+  "description": "Evidence-based decision protocol for hillside cracking, sudden mudflows, rockfalls, blocked mountain corridors, and post-slide stabilization.",
+  "root_node": "ls_start",
+  "nodes": {
+    "ls_start": {
+      "id": "ls_start",
+      "step": 1,
+      "prompt": "What is the current phase of the landslide event you are experiencing?",
+      "context": "Landslides range from subtle pre-failure warning indicators to violent high-velocity debris avalanches.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_early_warning",
+          "text": "Early warning signs detected (New cracks in walls/ground, rumbling, sticking doors)",
+          "next_node": "ls_early_warning_location",
+          "description": "Pre-failure indicators on hillside slope or around your structure."
+        },
+        {
+          "id": "opt_active_slide",
+          "text": "Active landslide or debris flow in progress right now",
+          "next_node": "ls_active_slide_location",
+          "description": "Earth, boulders, mud, and trees are actively moving down-slope."
+        },
+        {
+          "id": "opt_aftermath",
+          "text": "Slide has just stopped; assessing damage, trapped persons, or secondary slide risks",
+          "next_node": "ls_aftermath_assessment",
+          "description": "Immediate post-slide recovery and secondary hazard mitigation."
+        }
+      ]
+    },
+
+    "ls_early_warning_location": {
+      "id": "ls_early_warning_location",
+      "step": 2,
+      "prompt": "Where are you observing these landslide early warning signs?",
+      "context": "Structural foundation shifting requires different evacuation precautions than mountain roadway anomalies.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_hillside_building",
+          "text": "At home / building located on or directly below a hill slope",
+          "next_node": "ls_early_warning_signs_building",
+          "description": "Residential or commercial structure on hillside or near a valley floor."
+        },
+        {
+          "id": "opt_hill_road_travel",
+          "text": "Traveling along a mountain road or ghat section",
+          "next_node": "ls_early_warning_mountain_road",
+          "description": "Driving or riding through hill passes or near road cuttings."
+        }
+      ]
+    },
+
+    "ls_early_warning_signs_building": {
+      "id": "ls_early_warning_signs_building",
+      "step": 3,
+      "prompt": "Which specific warning signs are visible around the building?",
+      "context": "Sudden ground seepage and widening tension cracks indicate imminent slope shear failure.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_cracking_and_seepage",
+          "text": "New widening ground cracks, muddy water springs emerging, or tilting trees/poles",
+          "next_node": "ls_guidance_preemptive_evac_hillside",
+          "description": "Slope saturation threshold breached; catastrophic failure imminent."
+        },
+        {
+          "id": "opt_minor_plaster_cracks",
+          "text": "Minor interior plaster cracks only, during prolonged heavy monsoon rainfall",
+          "next_node": "ls_guidance_hillside_monitoring_prep",
+          "description": "Heightened vigilance, Go-Bag readiness, and route identification."
+        }
+      ]
+    },
+
+    "ls_early_warning_mountain_road": {
+      "id": "ls_early_warning_mountain_road",
+      "step": 3,
+      "prompt": "What road conditions are you encountering ahead on the mountain pass?",
+      "context": "Small rock pebbles trickling down a road cutting are often the immediate precursor to a major rockfall.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_trickling_pebbles_mud",
+          "text": "Trickling gravel/pebbles falling from cliff, or small mud patches on asphalt",
+          "next_node": "ls_guidance_mountain_road_retreat",
+          "description": "Slope shear failure commencing directly above the roadway."
+        },
+        {
+          "id": "opt_water_gushing_culverts",
+          "text": "Culverts overflowing with muddy water, tree branches jamming drainage",
+          "next_node": "ls_guidance_blocked_culvert_corridor",
+          "description": "Risk of sudden flash debris dam burst across the roadway."
+        }
+      ]
+    },
+
+    "ls_active_slide_location": {
+      "id": "ls_active_slide_location",
+      "step": 2,
+      "prompt": "Where are you situated while the mass movement / debris flow is taking place?",
+      "context": "Your physical environment dictates whether lateral flight or impact-protective curling is possible.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_active_outdoors_path",
+          "text": "Outdoors directly in the vicinity or path of moving earth and debris",
+          "next_node": "ls_active_outdoor_escape_feasibility",
+          "description": "You are exposed on the hillside, slope, or gully floor."
+        },
+        {
+          "id": "opt_active_inside_building",
+          "text": "Trapped inside a building as debris impacts exterior walls",
+          "next_node": "ls_guidance_indoor_impact_shelter",
+          "description": "Mud, boulders, or fallen trees are hitting structural walls."
+        },
+        {
+          "id": "opt_active_in_vehicle",
+          "text": "Inside a vehicle on a hill road as slide occurs nearby",
+          "next_node": "ls_guidance_vehicle_active_slide",
+          "description": "Rockfall or mudflow impacting or blocking the mountain road."
+        }
+      ]
+    },
+
+    "ls_active_outdoor_escape_feasibility": {
+      "id": "ls_active_outdoor_escape_feasibility",
+      "step": 3,
+      "prompt": "Can you immediately sprint sideways (laterally) out of the debris channel?",
+      "context": "Debris flows channel down ravines and gullies at 30 to 80 km/h. Moving perpendicular to the flow saves lives.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_can_sprint_lateral",
+          "text": "Yes, clear lateral path away from the gully onto stable ridge or high ground",
+          "next_node": "ls_guidance_lateral_escape_sprint",
+          "description": "Escape perpendicular to the flow path towards elevated stable ground."
+        },
+        {
+          "id": "opt_cannot_escape_path",
+          "text": "No escape path; debris is closing in or terrain is too steep to run",
+          "next_node": "ls_guidance_curl_protect_head",
+          "description": "Immediate impact bracing and airway preservation stance."
+        }
+      ]
+    },
+
+    "ls_aftermath_assessment": {
+      "id": "ls_aftermath_assessment",
+      "step": 2,
+      "prompt": "What is the primary condition of the post-slide area?",
+      "context": "Initial landslides frequently destabilize uphill slope masses, triggering deadly secondary failures.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_river_dammed_mud",
+          "text": "A river, stream, or valley floor has been dammed by landslide debris",
+          "next_node": "ls_guidance_landslide_dam_burst_alert",
+          "description": "Water impounding behind mud barrier; massive flash flood threat downstream."
+        },
+        {
+          "id": "opt_persons_trapped_debris",
+          "text": "Persons or homes buried under slide material; secondary slides possible",
+          "next_node": "ls_guidance_post_slide_rescue_caution",
+          "description": "Search and rescue required without triggering slope re-failure."
+        }
+      ]
+    },
+
+    "ls_guidance_preemptive_evac_hillside": {
+      "id": "ls_guidance_preemptive_evac_hillside",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "IMMEDIATE HILLSIDE PREEMPTIVE EVACUATION",
+        "severity": "CRITICAL",
+        "summary": "Widening ground tension cracks and muddy seepage indicate that the slope is on the verge of shear failure.",
+        "immediate_actions": [
+          "EVACUATE IMMEDIATELY. Do not spend time packing heavy household items.",
+          "Inform all family members and immediate downhill/uphill neighbors verbally.",
+          "Evacuate along pre-planned lateral routes towards a known stable geological ridge or municipal shelter.",
+          "Keep away from the toe (base) and the crest (top edge) of the slope.",
+          "Report the ground cracks immediately to the District Emergency Operation Centre (DEOC) and Geological Survey of India (GSI) nodal officers."
+        ],
+        "actions_to_avoid": [
+          "DO NOT wait until nightfall or until mud starts moving; catastrophic slope failures occur in seconds.",
+          "DO NOT walk down into natural gullies, dry stream beds, or drainage valleys which become high-speed debris channels.",
+          "DO NOT attempt to divert flowing mud with shovels or sandbags."
+        ],
+        "preventive_measures": [
+          "Check on elderly and mobility-impaired neighbors during your evacuation.",
+          "Carry only your emergency Go-Bag with identification, medications, flashlight, and phone."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Disaster Helpline", "number": "1078"},
+          {"name": "Geological Survey of India (GSI) Landslide Monitoring", "number": "1800-345-474"}
+        ],
+        "official_reference": "Geological Survey of India (GSI) Landslide Early Warning & NDMA National Landslide Guidelines"
+      }
+    },
+
+    "ls_guidance_hillside_monitoring_prep": {
+      "id": "ls_guidance_hillside_monitoring_prep",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "PRECAUTIONARY",
+      "guidance": {
+        "status": "HEIGHTENED HILLSIDE MONITORING & READINESS",
+        "severity": "PRECAUTIONARY",
+        "summary": "Heavy rainfall in hilly terrain creates saturated soils. Prepare for sudden evacuation if conditions deteriorate.",
+        "immediate_actions": [
+          "Inspect the perimeter of your building twice daily for hairline cracks in soil, retaining walls, or foundation joints.",
+          "Ensure your 72-hour Disaster Go-Bag is packed and positioned near the exit door.",
+          "Sleep in bedrooms located furthest from the uphill slope if staying in the house.",
+          "Listen to local weather warnings and Geological Survey of India (GSI) regional landslide forecast bulletins.",
+          "Agree on a designated safe family meeting point on high, flat, stable ground."
+        ],
+        "actions_to_avoid": [
+          "DO NOT clear hillside drainage channels with heavy excavation machinery during active downpours.",
+          "DO NOT ignore unusual sounds like trees cracking or faint rumbling noises."
+        ],
+        "preventive_measures": [
+          "Ensure roof gutters and drains direct water away from the hillside slope face.",
+          "Check that neighbors are aware of local evacuation pathways."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Helpline (NDRF)", "number": "1078"}
+        ],
+        "official_reference": "NDMA Landslide Preparedness Checklist & GSI Guidelines"
+      }
+    },
+
+    "ls_guidance_mountain_road_retreat": {
+      "id": "ls_guidance_mountain_road_retreat",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "MOUNTAIN ROADWAY PRE-COLLAPSE RETREAT",
+        "severity": "URGENT",
+        "summary": "Trickling pebbles and small rock fragments from road cuttings are the primary warning of an imminent major slide.",
+        "immediate_actions": [
+          "STOP IMMEDIATELY. Do not attempt to speed past falling stones or pebbles.",
+          "Put the vehicle in reverse or carefully execute a 3-point turn if road width permits, and retreat to a wide, stable section of the road.",
+          "Warn motorists behind you with hazard flashers, horn, and hand signals.",
+          "Park well clear of steep rock cuttings, overhanging ledges, or narrow blind turns.",
+          "Alert the nearest Border Roads Organisation (BRO), NHAI, or local police checkpost."
+        ],
+        "actions_to_avoid": [
+          "DO NOT step out of the vehicle directly beneath a cliff face to take photos or inspect fallen rocks.",
+          "DO NOT drive across freshly deposited mud or rock debris; it can trigger a sudden slide beneath your vehicle's weight.",
+          "DO NOT overtake queued vehicles on mountain hairpin bends."
+        ],
+        "preventive_measures": [
+          "Wait at a safe highway rest stop or designated transit camp until road clearance teams officially certify the route."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "National Highways Helpline", "number": "1033"},
+          {"name": "Border Roads Organisation (BRO)", "number": "1800-11-2078"}
+        ],
+        "official_reference": "Border Roads Organisation (BRO) & NDMA Mountain Highway Safety Protocol"
+      }
+    },
+
+    "ls_guidance_blocked_culvert_corridor": {
+      "id": "ls_guidance_blocked_culvert_corridor",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "DEBRIS DAM BURST WARNING ON MOUNTAIN PASS",
+        "severity": "CRITICAL",
+        "summary": "Overflowing culverts jammed with timber and mud create temporary debris dams that burst with extreme force.",
+        "immediate_actions": [
+          "Never attempt to drive or walk through water overflowing across a mountain culvert or dip.",
+          "Retreat at least 200 meters away from the drainage channel onto elevated roadway.",
+          "If trapped between two active slides on a ghat road, move your vehicle to the mountain cut side (away from valley drop-off) and stay alert.",
+          "Prepare to evacuate the vehicle on foot up-slope if water or debris begins pooling around the tires."
+        ],
+        "actions_to_avoid": [
+          "DO NOT try to manually unblock jammed culvert pipes with hand tools during torrential rain.",
+          "DO NOT stand near the edge of the road looking down into the valley; saturated road shoulders collapse suddenly."
+        ],
+        "preventive_measures": [
+          "Notify district administration with exact highway milestone or GPS coordinates."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "State Highway Emergency", "number": "1077"}
+        ],
+        "official_reference": "NDMA Guidelines for Disaster Management in Mountainous Regions"
+      }
+    },
+
+    "ls_guidance_lateral_escape_sprint": {
+      "id": "ls_guidance_lateral_escape_sprint",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "LIFE-OR-DEATH: LATERAL SPRINT AWAY FROM PATH",
+        "severity": "CRITICAL",
+        "summary": "Active slide in progress outdoors. Escape PERPENDICULAR to the flow direction onto stable high ground.",
+        "immediate_actions": [
+          "RUN LATERALLY (sideways, across the slope) out of the path of the slide immediately.",
+          "Aim for a prominent rock outcrop, stable ridge, or elevated shoulder outside the gully channel.",
+          "Drop heavy backpacks, baggage, and obstacles to maximize running agility.",
+          "Shout a single loud warning to others in the path as you run sideways.",
+          "Once on safe high ground, continue moving further away; debris flows widen as they descend."
+        ],
+        "actions_to_avoid": [
+          "NEVER run downhill in the direction of the slide — debris flows travel much faster than human sprinting speed (up to 80 km/h).",
+          "DO NOT attempt to cross an active mudflow even if it appears shallow; liquefied mud carries massive boulders and has high density.",
+          "DO NOT turn back to rescue livestock or possessions."
+        ],
+        "preventive_measures": [
+          "Watch for secondary landslides on adjacent slope faces caused by vibration and soil displacement."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Disaster Rescue", "number": "1078"}
+        ],
+        "official_reference": "Geological Survey of India (GSI) & NDMA Standard Survival Protocol"
+      }
+    },
+
+    "ls_guidance_curl_protect_head": {
+      "id": "ls_guidance_curl_protect_head",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "LAST-RESORT IMPACT STANCE: TIGHT CURL & HEAD SHIELD",
+        "severity": "CRITICAL",
+        "summary": "Escape is impossible and debris is upon you. Protect your skull, cervical spine, and airway.",
+        "immediate_actions": [
+          "DROP to the ground immediately behind any sturdy barrier (tree stump, large anchored boulder).",
+          "CURL into a tight fetal ball: Bring knees firmly against your chest.",
+          "INTERLOCK fingers behind your neck and wrap your arms tightly around your head and ears.",
+          "Bury your face against your knees to prevent mud or rocks from crushing your face or choking your airway.",
+          "Hold this tight compact position until all movement, rumbling, and falling rocks cease."
+        ],
+        "actions_to_avoid": [
+          "DO NOT remain standing upright where boulders or snapping tree trunks can cause catastrophic impact trauma.",
+          "DO NOT scream or open your mouth while mud is churning around you; avoid swallowing saturated debris."
+        ],
+        "preventive_measures": [
+          "When motion stops, gently probe around your head for air pockets and begin rhythmic tapping signals."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Rescue Corps", "number": "1078"}
+        ],
+        "official_reference": "GSI & International Association of Engineering Geology (IAEG) Emergency Survival Standard"
+      }
+    },
+
+    "ls_guidance_indoor_impact_shelter": {
+      "id": "ls_guidance_indoor_impact_shelter",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "INDOOR DEBRIS IMPACT SHELTER PROTOCOL",
+        "severity": "CRITICAL",
+        "summary": "Trapped inside a building facing external debris impact. Seek interior reinforced shelter away from slope wall.",
+        "immediate_actions": [
+          "Move immediately to the side of the building FURTHEST AWAY from the hillside slope.",
+          "If multi-story, move to the second floor (upper level) — mud and debris typically bury the ground floor first.",
+          "Take shelter under a strong structural table, heavy workbench, or interior reinforced doorway.",
+          "Curl into a ball protecting your head and neck with pillows, cushions, or blankets.",
+          "Keep doors to the uphill rooms closed to act as an energy-absorbing baffle against incoming mud."
+        ],
+        "actions_to_avoid": [
+          "DO NOT stay in ground-floor rooms that face directly against the uphill slope.",
+          "DO NOT look out of windows or open uphill exterior doors during active movement.",
+          "DO NOT attempt to run outside into the active debris path if the building exterior is already surrounded by moving earth."
+        ],
+        "preventive_measures": [
+          "Once movement halts, assess if downhill exits or second-floor windows offer a safe evacuation path."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Disaster Rescue", "number": "1078"}
+        ],
+        "official_reference": "NDMA Landslide Structural Protection Advisory"
+      }
+    },
+
+    "ls_guidance_vehicle_active_slide": {
+      "id": "ls_guidance_vehicle_active_slide",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "VEHICLE ACTIVE ROCKFALL & SLIDE MITIGATION",
+        "severity": "CRITICAL",
+        "summary": "Vehicle caught near active rockfall or mudslide on a mountain roadway.",
+        "immediate_actions": [
+          "If the road ahead and behind is blocked by debris, park close to the inner mountain wall (if no rockfall directly above) or away from the valley cliff edge.",
+          "Turn on hazard flashers, engage parking brake, and keep seatbelts fastened.",
+          "If small debris hits the vehicle: Duck down below window level and cover your head with coats or bags.",
+          "If the vehicle is pushed towards the valley ledge: Unbuckle and exit immediately from the opposite side onto the roadway.",
+          "Seek shelter behind a sturdy reinforced concrete parapet or tunnel portal."
+        ],
+        "actions_to_avoid": [
+          "DO NOT attempt to ram your vehicle through a moving mudflow or rock pile.",
+          "DO NOT park on the outside shoulder of the road overhanging the precipice; soft verges crumble under car weight."
+        ],
+        "preventive_measures": [
+          "Keep your car radio tuned to local road transport announcements."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "National Highways Helpline", "number": "1033"}
+        ],
+        "official_reference": "NDMA & Ministry of Road Transport Guidelines for Hill Roads"
+      }
+    },
+
+    "ls_guidance_landslide_dam_burst_alert": {
+      "id": "ls_guidance_landslide_dam_burst_alert",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "CRITICAL FLASH FLOOD ALERT: LANDSLIDE DAMMED RIVER",
+        "severity": "CRITICAL",
+        "summary": "A landslide has blocked a river or stream. The artificial dam will rapidly breach, causing a catastrophic flash flood downstream.",
+        "immediate_actions": [
+          "IMMEDIATE DOWNSTREAM EVACUATION: If you are downstream of the landslide dam, move to high ground immediately.",
+          "Climb at least 30 to 50 meters above the valley floor onto hill flanks.",
+          "Warn all riverside villages, bridge workers, and residents downstream immediately.",
+          "Report the exact location of the river blockage to the District Magistrate, NDMA, and Central Water Commission (CWC) immediately.",
+          "Do not return to riverside plains until hydrologists officially breach the dam controlledly or certify the channel."
+        ],
+        "actions_to_avoid": [
+          "DO NOT gather on bridges or riverbanks to watch the blocked water.",
+          "DO NOT attempt to walk across the natural landslide dam; it is saturated and can liquefy instantly without warning.",
+          "DO NOT ignore sudden changes in river flow: if water suddenly drops to a trickle, the river has been blocked upstream!"
+        ],
+        "preventive_measures": [
+          "Stay connected with District Disaster Management Authority (DDMA) emergency VHF and wireless channels."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Central Water Commission Control", "number": "011-26106523"},
+          {"name": "NDRF Disaster Rescue", "number": "1078"}
+        ],
+        "official_reference": "Central Water Commission (CWC) & Geological Survey of India (GSI) Landslide Dam Hazard SOP"
+      }
+    },
+
+    "ls_guidance_post_slide_rescue_caution": {
+      "id": "ls_guidance_post_slide_rescue_caution",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "POST-LANDSLIDE CAUTIOUS RESCUE & DAMAGE ASSESSMENT",
+        "severity": "URGENT",
+        "summary": "Initial slide has stopped. Extreme caution is required as secondary slides frequently occur on freshly sheared scarp slopes.",
+        "immediate_actions": [
+          "Stay clear of the slide scarp and runout zone; wait for trained NDRF / SDRF search teams with sniffer dogs.",
+          "If searching for trapped persons, deploy spotters on high ground to continuously watch the upper slope for secondary movement.",
+          "Listen for sounds of trapped survivors (whistles, tapping) and mark locations with fluorescent spray or prominent poles.",
+          "Check for downed power lines, ruptured water pipes, and broken domestic gas cylinders.",
+          "Report the slide details immediately to 112 with exact geographic coordinates."
+        ],
+        "actions_to_avoid": [
+          "DO NOT allow untrained crowds to swarm the slide debris; additional weight can trigger renewed soil liquefaction.",
+          "DO NOT re-enter damaged buildings until certified safe by civil structural engineers.",
+          "DO NOT drink water from local streams near the slide; sediment and animal carcasses cause acute illness."
+        ],
+        "preventive_measures": [
+          "Establish a community cordon line 100 meters away from the slide boundary."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Disaster Response", "number": "1078"},
+          {"name": "Ambulance Emergency", "number": "108 / 102"}
+        ],
+        "official_reference": "NDRF Landslide Search & Rescue Guidelines & GSI Post-Disaster Protocol"
+      }
+    }
+  }
+}

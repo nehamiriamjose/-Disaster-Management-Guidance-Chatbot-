@@ -1,0 +1,640 @@
+{
+  "id": "earthquake",
+  "name": "Earthquake",
+  "category": "Seismic Emergency",
+  "badge": "Sudden Onset Threat",
+  "icon": "earthquake",
+  "description": "Rapid safety assessment and decision tree for active tremors, structural damage, trapped persons, and post-shaking evacuation.",
+  "root_node": "eq_start",
+  "nodes": {
+    "eq_start": {
+      "id": "eq_start",
+      "step": 1,
+      "prompt": "Where are you currently located right now?",
+      "context": "Your physical location dictates the safest immediate action during seismic activity.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_indoors",
+          "text": "Inside a building (House / Apartment / Office)",
+          "next_node": "eq_indoor_status",
+          "description": "You are within an enclosed residential or commercial structure."
+        },
+        {
+          "id": "opt_outdoors",
+          "text": "Outdoors (Street / Open space / Alley)",
+          "next_node": "eq_outdoor_status",
+          "description": "You are currently outside in an open or urban area."
+        },
+        {
+          "id": "opt_vehicle",
+          "text": "Inside a moving or stopped motor vehicle",
+          "next_node": "eq_vehicle_status",
+          "description": "You are driving or a passenger in a car, bus, or two-wheeler."
+        }
+      ]
+    },
+
+    "eq_indoor_status": {
+      "id": "eq_indoor_status",
+      "step": 2,
+      "prompt": "What is the immediate situation inside the building?",
+      "context": "Assess whether ground shaking is actively occurring or if you have suffered structural collapse.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_shaking_now",
+          "text": "The ground / building is actively shaking right now",
+          "next_node": "eq_indoor_active_shaking",
+          "description": "Violent or moderate shaking is in progress."
+        },
+        {
+          "id": "opt_shaking_stopped",
+          "text": "Shaking has stopped; inspecting structural integrity",
+          "next_node": "eq_indoor_hazard_check",
+          "description": "Tremors have paused, but hazards or aftershocks are imminent."
+        },
+        {
+          "id": "opt_trapped",
+          "text": "Trapped under debris, rubble, or heavy furniture",
+          "next_node": "eq_indoor_trapped_protocol",
+          "description": "You cannot exit freely or are pinned down by fallen objects."
+        }
+      ]
+    },
+
+    "eq_indoor_active_shaking": {
+      "id": "eq_indoor_active_shaking",
+      "step": 3,
+      "prompt": "What type of cover or room features are immediately accessible within 2-3 steps?",
+      "context": "During active tremors, running across rooms or attempting stairs causes the majority of severe trauma injuries.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_sturdy_table",
+          "text": "A sturdy wooden/metal table or heavy desk is nearby",
+          "next_node": "eq_guidance_drop_cover_hold",
+          "description": "Strong overhead shield available immediately."
+        },
+        {
+          "id": "opt_no_furniture",
+          "text": "No sturdy furniture nearby; only bare walls / bed / doorway",
+          "next_node": "eq_guidance_interior_wall_shield",
+          "description": "Open room with glass windows, false ceiling, or unreinforced walls."
+        }
+      ]
+    },
+
+    "eq_indoor_hazard_check": {
+      "id": "eq_indoor_hazard_check",
+      "step": 3,
+      "prompt": "Shaking stopped. Are you detecting any utility hazards or severe building cracks?",
+      "context": "Secondary post-earthquake fires and building collapse cause extensive casualties.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_gas_spark",
+          "text": "Smell of gas leak, electrical sparking, or severed water lines",
+          "next_node": "eq_guidance_utility_emergency",
+          "description": "Immediate fire or electrocution hazard present."
+        },
+        {
+          "id": "opt_no_utility_hazard",
+          "text": "No gas smell or fire, but stairs/exits need evaluation",
+          "next_node": "eq_indoor_evacuation_choice",
+          "description": "Evaluating evacuation route to open ground."
+        }
+      ]
+    },
+
+    "eq_indoor_evacuation_choice": {
+      "id": "eq_indoor_evacuation_choice",
+      "step": 4,
+      "prompt": "What floor are you on, and what is the state of your exit pathway?",
+      "context": "Aftershocks can trigger subsequent collapses of compromised structures.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_ground_single",
+          "text": "Ground floor / 1st floor with clear unobstructed exit to open ground",
+          "next_node": "eq_guidance_evacuate_ground",
+          "description": "Direct, rapid access to an open external assembly area."
+        },
+        {
+          "id": "opt_multi_story",
+          "text": "Multi-story / high-rise building with stairwell access",
+          "next_node": "eq_guidance_highrise_evac",
+          "description": "Elevated floor where stair congestion and aftershocks must be managed."
+        }
+      ]
+    },
+
+    "eq_indoor_trapped_protocol": {
+      "id": "eq_indoor_trapped_protocol",
+      "step": 4,
+      "prompt": "Assess your physical mobility and respiratory environment under the debris:",
+      "context": "Preserving oxygen, preventing dust inhalation, and signaling without exhaust are critical for survival.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_trapped_airway_open",
+          "text": "Airway open, can tap objects or have a mobile/whistle",
+          "next_node": "eq_guidance_trapped_signaling",
+          "description": "Able to generate auditory signals without inhaling toxic dust."
+        },
+        {
+          "id": "opt_trapped_heavy_dust",
+          "text": "Dense dust, smoke, or constricted breathing space",
+          "next_node": "eq_guidance_trapped_dust_management",
+          "description": "Airway is at risk from plaster dust or smoke."
+        }
+      ]
+    },
+
+    "eq_outdoor_status": {
+      "id": "eq_outdoor_status",
+      "step": 2,
+      "prompt": "What are your immediate physical surroundings outdoors?",
+      "context": "Falling glass, masonry, billboards, and downed electrical lines are the top outdoor seismic hazards.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_dense_urban",
+          "text": "High-density street with tall buildings, glass facades, or power poles",
+          "next_node": "eq_outdoor_urban_hazards",
+          "description": "Surrounded by vertical structures prone to shedding debris."
+        },
+        {
+          "id": "opt_open_park",
+          "text": "Open field, wide park, sports ground, or open agricultural field",
+          "next_node": "eq_guidance_open_field_stay",
+          "description": "No overhead structures or power cables within striking radius."
+        },
+        {
+          "id": "opt_hilly_outdoor",
+          "text": "Near steep hillsides, cliffs, road cuttings, or coastal shoreline",
+          "next_node": "eq_guidance_slope_coastal_outdoor",
+          "description": "Risk of earthquake-triggered rockfall, landslide, or tsunami."
+        }
+      ]
+    },
+
+    "eq_outdoor_urban_hazards": {
+      "id": "eq_outdoor_urban_hazards",
+      "step": 3,
+      "prompt": "Are live power cables down or is masonry actively falling from facades?",
+      "context": "Step potential from fallen electrical cables can electrocute you even at a distance.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_downed_wires",
+          "text": "Downed electrical cables or transformer sparks visible",
+          "next_node": "eq_guidance_downed_powerlines",
+          "description": "Live electricity hazard on pavement or wet road."
+        },
+        {
+          "id": "opt_falling_glass",
+          "text": "Falling glass/parapets; need immediate trajectory protection",
+          "next_node": "eq_guidance_urban_debris_cover",
+          "description": "Shielding your head from overhead facade failure."
+        }
+      ]
+    },
+
+    "eq_vehicle_status": {
+      "id": "eq_vehicle_status",
+      "step": 2,
+      "prompt": "Where is the vehicle currently positioned on the roadway?",
+      "context": "Bridges, flyovers, tunnels, and underpasses are highly susceptible to seismic shear failure.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_on_bridge",
+          "text": "On an overpass, flyover, bridge, or inside an underpass/tunnel",
+          "next_node": "eq_guidance_bridge_vehicle",
+          "description": "Elevated or subterranean road infrastructure."
+        },
+        {
+          "id": "opt_open_road",
+          "text": "Open highway or street, clear of overhanging signs and power lines",
+          "next_node": "eq_guidance_open_road_vehicle",
+          "description": "Flat ground clear of elevated structural hazards."
+        }
+      ]
+    },
+
+    "eq_guidance_drop_cover_hold": {
+      "id": "eq_guidance_drop_cover_hold",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "IMMEDIATE LIFE-SAFETY: DROP, COVER, AND HOLD ON",
+        "severity": "CRITICAL",
+        "summary": "You are indoors during active tremors with sturdy furniture accessible. Protect your vital organs immediately.",
+        "immediate_actions": [
+          "DROP onto your hands and knees immediately to prevent being knocked over.",
+          "COVER your head and neck (and your entire body if possible) underneath the sturdy table or desk.",
+          "HOLD ON to your shelter with one hand and stay ready to move with it if it shifts.",
+          "Keep eyes closed and face buried against your chest or arm to protect against shattering glass.",
+          "Remain under cover until ground shaking has completely stopped for at least 60 seconds."
+        ],
+        "actions_to_avoid": [
+          "DO NOT run outside while the ground is shaking — falling tiles, bricks, and facade glass cause most injuries.",
+          "DO NOT stand in doorways; modern doorways are rarely load-bearing and do not shield against flying objects.",
+          "DO NOT use elevators under any circumstances.",
+          "DO NOT stand near windows, glass cabinets, heavy mirrors, or hanging chandeliers."
+        ],
+        "preventive_measures": [
+          "After shaking halts, put on sturdy shoes immediately to protect against broken glass.",
+          "Inspect exits before attempting evacuation.",
+          "Anticipate strong aftershocks within minutes or hours."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Management Helpline (NDRF)", "number": "1078"},
+          {"name": "Fire & Rescue", "number": "101"}
+        ],
+        "official_reference": "National Disaster Management Authority (NDMA) — National Earthquake Risk Mitigation Guidelines"
+      }
+    },
+
+    "eq_guidance_interior_wall_shield": {
+      "id": "eq_guidance_interior_wall_shield",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "IMMEDIATE LIFE-SAFETY: INTERIOR WALL SHIELDING",
+        "severity": "CRITICAL",
+        "summary": "No furniture is available. Drop along an interior load-bearing partition wall far from exterior windows.",
+        "immediate_actions": [
+          "DROP immediately to the floor against an interior wall away from exterior windows, mirrors, and tall furniture.",
+          "Crouch low, facing the interior wall, and interlock your fingers behind your neck to protect the cervical spine.",
+          "Pull your elbows against your knees to form a compact protective triangle.",
+          "If on a bed and cannot move, stay face down and pull pillows over your head and neck."
+        ],
+        "actions_to_avoid": [
+          "DO NOT run towards stairs or balcony railing.",
+          "DO NOT attempt to retrieve personal belongings or electronics while shaking is active.",
+          "DO NOT light matches, candles, or lighters due to potential gas leaks."
+        ],
+        "preventive_measures": [
+          "When shaking stops, scan your ceiling for sagging structural plaster.",
+          "Locate your emergency 72-hour go-bag if within immediate reach."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency", "number": "112"},
+          {"name": "Disaster Helpline", "number": "1078"}
+        ],
+        "official_reference": "NDMA India & Standard Operating Procedure for Earthquake Management"
+      }
+    },
+
+    "eq_guidance_utility_emergency": {
+      "id": "eq_guidance_utility_emergency",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "UTILITY HAZARD & FIRE SUPPRESSION PROTOCOL",
+        "severity": "CRITICAL",
+        "summary": "Gas leak or electrical arcing detected post-quake. Prevent immediate ignition or explosion.",
+        "immediate_actions": [
+          "Turn off the primary gas cylinder valve (LPG regulator) or main gas line valve immediately if safely accessible.",
+          "Switch off the main electrical breaker ONLY if the switchboard is completely dry and safe to touch.",
+          "Open exterior doors and windows to vent volatile gas vapors if doing so takes seconds.",
+          "Evacuate everyone immediately to an open outdoor space via stairs (never elevators).",
+          "Alert neighbors verbally while exiting without ringing electrical doorbells."
+        ],
+        "actions_to_avoid": [
+          "DO NOT flip light switches, use flashlights with spark switches, or use corded phones.",
+          "DO NOT light lighters, matches, or stoves.",
+          "DO NOT attempt to enter flooded basements where electrical currents may be energized."
+        ],
+        "preventive_measures": [
+          "Once outdoors at a safe distance (at least 50m), dial 112 or Fire 101 to report the gas leak.",
+          "Never re-enter a gas-filled structure until authorized by certified emergency personnel."
+        ],
+        "emergency_contacts": [
+          {"name": "Fire & Rescue Service", "number": "101"},
+          {"name": "National Emergency", "number": "112"},
+          {"name": "Ambulance", "number": "108 / 102"}
+        ],
+        "official_reference": "NDMA Post-Earthquake Fire Safety & Hazardous Material Protocols"
+      }
+    },
+
+    "eq_guidance_evacuate_ground": {
+      "id": "eq_guidance_evacuate_ground",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "ORDERLY EVACUATION TO OPEN ASSEMBLY ZONE",
+        "severity": "URGENT",
+        "summary": "Shaking has halted and ground exit is unobstructed. Evacuate immediately before aftershocks.",
+        "immediate_actions": [
+          "Put on sturdy shoes or boots to prevent lacerations from shattered debris.",
+          "Grab your emergency Go-Bag (water, torch, first aid, medicines) if it is immediately at hand.",
+          "Evacuate through the exterior door calmly without pushing.",
+          "Move at least 1.5 times the height of adjacent buildings into an open field or designated park.",
+          "Stay alert for falling roof tiles, chimney bricks, and air-conditioning units."
+        ],
+        "actions_to_avoid": [
+          "DO NOT loiter on sidewalks, under awnings, or below power transmission lines.",
+          "DO NOT re-enter the building to search for pets or valuables until officially declared safe.",
+          "DO NOT spread unverified rumors on social media or tie up phone lines; use SMS for emergency contacts."
+        ],
+        "preventive_measures": [
+          "Perform a headcount of family/group members in the open assembly area.",
+          "Check everyone for injuries and administer basic first aid if trained."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Helpline (NDRF)", "number": "1078"}
+        ],
+        "official_reference": "NDMA Community Evacuation & Assembly Protocol"
+      }
+    },
+
+    "eq_guidance_highrise_evac": {
+      "id": "eq_guidance_highrise_evac",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "MULTI-STORY EVACUATION & AFTERSHOCK PROTOCOL",
+        "severity": "URGENT",
+        "summary": "You are on an elevated floor. Proceed down stairwells cautiously; beware jam-packed landings and aftershocks.",
+        "immediate_actions": [
+          "Check the stairwell door with the back of your hand before opening to detect heat from secondary fires.",
+          "Descend the staircase along the inner rail, moving deliberately and allowing space for emergency responders.",
+          "If an aftershock begins while on the stairs, crouch on the landing against the inner wall and protect your head.",
+          "Follow instructions from building wardens and move directly out to open street areas once ground level is reached."
+        ],
+        "actions_to_avoid": [
+          "DO NOT use elevators — power failure can trap you in elevator shafts between floors.",
+          "DO NOT crowd or push down stairs; stampedes are a major source of post-quake trauma.",
+          "DO NOT climb onto the roof unless ground exits are blocked by intense fire or collapse."
+        ],
+        "preventive_measures": [
+          "Report any visible shearing or diagonal X-cracks in concrete columns to municipal authorities.",
+          "Keep stairwell doors unlocked from inside to prevent trapping subsequent evacuees."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Helpline (NDRF)", "number": "1078"}
+        ],
+        "official_reference": "NDMA High-Rise Building Seismic Safety Directives"
+      }
+    },
+
+    "eq_guidance_trapped_signaling": {
+      "id": "eq_guidance_trapped_signaling",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "SEARCH & RESCUE SIGNALING PROTOCOL",
+        "severity": "CRITICAL",
+        "summary": "Trapped under debris with intact airway. Conserve physical energy and oxygen while signaling rescuers.",
+        "immediate_actions": [
+          "Cover your mouth and nose with a handkerchief, clothing cloth, or mask to filter pulverized cement and dust.",
+          "Tap on a metal pipe, radiator, or structural wall with a stone or piece of rubble in rhythmic bursts of 3 (SOS signal).",
+          "Use a whistle if one is on your keychain or emergency kit — whistle sounds carry through rubble better than voices.",
+          "Only shout as a last resort when you clearly hear search teams or rescue dogs working directly overhead.",
+          "Keep calm to reduce oxygen consumption and heart rate."
+        ],
+        "actions_to_avoid": [
+          "DO NOT shout continuously — screaming causes dust inhalation, vocal cord damage, and rapid exhaustion.",
+          "DO NOT strike matches or lighters — risk of igniting leaking domestic gas.",
+          "DO NOT make sudden jerky movements that could destabilize overhead debris or concrete slabs."
+        ],
+        "preventive_measures": [
+          "If your phone has signal, send a brief SMS/WhatsApp text with your last known floor/room coordinates.",
+          "Turn phone screen brightness to minimum to preserve battery for emergency location beaconing."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency (ERSS)", "number": "112"},
+          {"name": "NDRF Disaster Rescue", "number": "1078"}
+        ],
+        "official_reference": "NDRF Urban Search and Rescue (USAR) Survival Guidelines"
+      }
+    },
+
+    "eq_guidance_trapped_dust_management": {
+      "id": "eq_guidance_trapped_dust_management",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "CONFINED AIRWAY & COLLAPSE DEFENSE PROTOCOL",
+        "severity": "CRITICAL",
+        "summary": "Trapped with heavy dust and smoke. Immediate protection of airway and vital organs is paramount.",
+        "immediate_actions": [
+          "Pull your shirt over your nose and mouth; breathe shallowly through your nose to avoid inhaling abrasive silica dust.",
+          "Keep head protected with any cushion, jacket, or your arms tucked over the skull.",
+          "Listen carefully for quiet periods in rescue operations when listening devices are deployed.",
+          "Tap three times on solid debris every few minutes to make your presence audible to acoustic listening sensors."
+        ],
+        "actions_to_avoid": [
+          "DO NOT panic or hyperventilate; carbon dioxide buildup in confined voids can cause loss of consciousness.",
+          "DO NOT attempt to kick away heavy structural pillars or beams supporting the void."
+        ],
+        "preventive_measures": [
+          "Remain patient; USAR rescue teams systematically search rubble with sniffer dogs, acoustic sensors, and cameras."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Rescue Ops", "number": "1078"}
+        ],
+        "official_reference": "International Search and Rescue Advisory Group (INSARAG) & NDMA SOP"
+      }
+    },
+
+    "eq_guidance_downed_powerlines": {
+      "id": "eq_guidance_downed_powerlines",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "DOWNED HIGH-VOLTAGE CABLE PROTOCOL",
+        "severity": "CRITICAL",
+        "summary": "Downed electrical cables pose extreme electrocution risk via step potential through the ground.",
+        "immediate_actions": [
+          "Maintain at least 10 meters (33 feet) distance from all fallen power lines and any objects touching them.",
+          "If trapped near a line, keep feet together and bunny-hop or shuffle without lifting your feet to avoid ground gradient current.",
+          "Warn pedestrians and vehicles to stay clear immediately.",
+          "Report the fallen power line immediately to 112 and local electricity board."
+        ],
+        "actions_to_avoid": [
+          "DO NOT touch puddles of water, chain-link fences, metal guardrails, or vehicles touching downed cables.",
+          "DO NOT attempt to push wires away with sticks, broom handles, or umbrellas — high voltage arcs through dry wood."
+        ],
+        "preventive_measures": [
+          "Wait for certified electrical utility linemen to de-energize the feeder before approaching the zone."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Fire & Rescue", "number": "101"}
+        ],
+        "official_reference": "Central Electricity Authority (Safety Requirements) & NDMA Safety Code"
+      }
+    },
+
+    "eq_guidance_urban_debris_cover": {
+      "id": "eq_guidance_urban_debris_cover",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "URBAN FALLING DEBRIS DEFENSE",
+        "severity": "URGENT",
+        "summary": "Outdoor urban canyon with falling facade tiles, window glass, and air conditioners.",
+        "immediate_actions": [
+          "Protect your head and neck immediately using a backpack, briefcase, jacket, or your interlocked arms.",
+          "Move swiftly into the center of a wide road or open courtyard away from building perimeters.",
+          "If nowhere open is reachable, take refuge inside a solid archway or under a sturdy bus shelter structure.",
+          "Watch for traffic as vehicles may drive erratically due to pavement buckling."
+        ],
+        "actions_to_avoid": [
+          "DO NOT seek shelter under cantilevered balconies, glass canopies, or overhead advertising hoardings.",
+          "DO NOT rush to enter buildings to escape the street; doorways have high falling object casualty rates."
+        ],
+        "preventive_measures": [
+          "Locate open municipal parks or school sports grounds designated as civil defense assembly points."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Helpline", "number": "1078"}
+        ],
+        "official_reference": "NDMA Urban Earthquake Safety Guidelines"
+      }
+    },
+
+    "eq_guidance_open_field_stay": {
+      "id": "eq_guidance_open_field_stay",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "NORMAL",
+      "guidance": {
+        "status": "SAFE OPEN-GROUND PERIMETER SECURED",
+        "severity": "NORMAL",
+        "summary": "You are in an open field, park, or wide ground. This is the safest outdoor position during an earthquake.",
+        "immediate_actions": [
+          "Stay in the open ground until all shaking has stopped completely.",
+          "Crouch low if ground motion is violent enough to unbalance you.",
+          "Look around to verify no overhead utility cables or leaning trees are nearby.",
+          "Assist individuals who may be disoriented or injured, offering basic reassurance and first aid."
+        ],
+        "actions_to_avoid": [
+          "DO NOT rush back inside buildings to check on property or pets.",
+          "DO NOT block access roads needed by emergency fire and ambulance vehicles."
+        ],
+        "preventive_measures": [
+          "Tune in to official emergency broadcasts via All India Radio (AIR) or official disaster management channels on phone.",
+          "Prepare for potential aftershocks over the next 24 to 72 hours."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Management (NDRF)", "number": "1078"}
+        ],
+        "official_reference": "NDMA Guidelines for Disaster Awareness & Community Response"
+      }
+    },
+
+    "eq_guidance_slope_coastal_outdoor": {
+      "id": "eq_guidance_slope_coastal_outdoor",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "SECONDARY HAZARD: ROCKFALL & TSUNAMI EVACUATION",
+        "severity": "CRITICAL",
+        "summary": "Earthquakes in hilly terrain trigger rockfalls and landslides; along the coast, they can generate devastating tsunamis.",
+        "immediate_actions": [
+          "If near steep cliffs or hill slopes: Move immediately away from the base or crest of the slope to avoid rockfall.",
+          "If near the sea/beach: An earthquake shaking the ground is your natural warning. Move immediately inland and to high ground (at least 15m elevation or 1-2 km inland).",
+          "Do not wait for formal sirens or official announcements if you felt strong shaking near the coast.",
+          "Stay on high ground until disaster management authorities give official all-clear."
+        ],
+        "actions_to_avoid": [
+          "DO NOT walk down to the coast to watch receding seawater or explore exposed seabed.",
+          "DO NOT shelter directly beneath unstable highway road cuts or steep retaining walls."
+        ],
+        "preventive_measures": [
+          "Follow marked Tsunami / Landslide Evacuation Routes where installed by local administration."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "INCOIS Tsunami Early Warning Centre", "number": "040-23895011"},
+          {"name": "Disaster Helpline", "number": "1078"}
+        ],
+        "official_reference": "Indian National Centre for Ocean Information Services (INCOIS) & NDMA Guidelines"
+      }
+    },
+
+    "eq_guidance_bridge_vehicle": {
+      "id": "eq_guidance_bridge_vehicle",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "VEHICLE ON ELEVATED / TUNNEL INFRASTRUCTURE",
+        "severity": "CRITICAL",
+        "summary": "Flyovers, elevated expressways, bridges, and tunnels are high-vulnerability structures during seismic tremors.",
+        "immediate_actions": [
+          "If safely possible without colliding, drive off the bridge, flyover, or out of the underpass immediately.",
+          "If traffic is stopped or the deck is buckled, pull the vehicle as far to the shoulder as possible.",
+          "Turn on emergency hazard warning blinkers and set the emergency handbrake.",
+          "Turn off the engine, leave the keys in the ignition or console (for emergency crane towing), and exit the vehicle.",
+          "Walk calmly along the bridge walkway toward the nearest stable abutment or ramp off the structure."
+        ],
+        "actions_to_avoid": [
+          "DO NOT park directly beneath overhead sign gantries, street light poles, or concrete expansion joints.",
+          "DO NOT abandon your vehicle in the middle lane where it blocks fire engines and rescue ambulances."
+        ],
+        "preventive_measures": [
+          "Once on stable ground, move well away from highway overpass pillars."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "National Highways Helpline", "number": "1033"}
+        ],
+        "official_reference": "Indian Roads Congress (IRC) & NDMA Transport Safety Directives"
+      }
+    },
+
+    "eq_guidance_open_road_vehicle": {
+      "id": "eq_guidance_open_road_vehicle",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "VEHICLE SAFE-STOP PROTOCOL",
+        "severity": "URGENT",
+        "summary": "You are driving on an open roadway. Stop safely away from road hazards and remain inside.",
+        "immediate_actions": [
+          "Slow down gradually and pull over to the side of the road safely out of the traffic flow.",
+          "Ensure you are clear of power poles, tall hoardings, overhanging trees, and fuel stations.",
+          "Put the vehicle in Park (or neutral with handbrake engaged) and turn on hazard flashers.",
+          "Remain inside the vehicle — the metal shell and suspension offer protection from flying debris.",
+          "Listen to vehicle car radio for emergency civil defense updates."
+        ],
+        "actions_to_avoid": [
+          "DO NOT stop abruptly in the middle of active traffic.",
+          "DO NOT exit the vehicle if power lines have fallen across the hood or roof; the tires insulate you, but stepping out creates a path to ground."
+        ],
+        "preventive_measures": [
+          "Proceed with extreme caution only after shaking stops completely, watching for buckled asphalt, sinkholes, and fallen debris."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Helpline", "number": "1078"}
+        ],
+        "official_reference": "NDMA Motorist Seismic Safety Guidelines"
+      }
+    }
+  }
+}

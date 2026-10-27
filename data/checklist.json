@@ -1,0 +1,149 @@
+{
+  "title": "72-Hour Emergency Preparedness & Go-Bag Checklist",
+  "subtitle": "Essential life-support supplies and documentation recommended by NDMA India for immediate disaster resilience.",
+  "categories": [
+    {
+      "id": "survival_essentials",
+      "name": "Water & Nutrition Essentials",
+      "icon": "water",
+      "items": [
+        {
+          "id": "item_water",
+          "label": "Drinking water: At least 3 to 4 liters per person per day (minimum 3-day supply)",
+          "detail": "Store in sealed food-grade containers; replace every 6 months. Crucial for hydration and sanitation.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_food",
+          "label": "Non-perishable ready-to-eat food (roasted gram, dry fruits, energy bars, biscuits, canned food)",
+          "detail": "High-calorie foods requiring no cooking, heating, or refrigeration. Include manual can opener.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_purification",
+          "label": "Water purification tablets (Chlorine / Halazone) or portable filtration bottle",
+          "detail": "Allows safe purification of rainwater or clean surface water when municipal water fails.",
+          "priority": "MEDIUM"
+        }
+      ]
+    },
+    {
+      "id": "medical_first_aid",
+      "name": "First Aid & Medical Supplies",
+      "icon": "first_aid",
+      "items": [
+        {
+          "id": "item_firstaid_kit",
+          "label": "Comprehensive First Aid Kit (sterile gauze, bandages, antiseptic solution, medical tape, scissors)",
+          "detail": "Basic trauma management for cuts, punctures, sprains, and minor burns.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_prescription_meds",
+          "label": "7 to 14 days supply of essential personal prescription medicines",
+          "detail": "Insulin, BP tablets, inhalers, heart medication, along with copy of doctor prescriptions.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_otc_meds",
+          "label": "Emergency OTC medications (Paracetamol, ORS rehydration sachets, antacids, antihistamines)",
+          "detail": "ORS is especially vital during floods to counter diarrheal dehydration.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_n95_masks",
+          "label": "N95 masks / cloth dust filters (at least 2 per family member)",
+          "detail": "Protects against pulverized concrete dust in earthquakes and debris fumes in landslides.",
+          "priority": "MEDIUM"
+        }
+      ]
+    },
+    {
+      "id": "emergency_tools",
+      "name": "Tools, Signaling & Power",
+      "icon": "tools",
+      "items": [
+        {
+          "id": "item_torch_batteries",
+          "label": "LED Flashlight / Torch with extra sealed batteries or crank dynamo",
+          "detail": "Crucial for night navigation; avoid open candles which cause post-quake fires.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_whistle",
+          "label": "High-decibel emergency whistle (pea-less safety whistle)",
+          "detail": "Saves energy and voice when trapped; whistle sound travels 3x further through debris than shouts.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_power_bank",
+          "label": "Fully charged heavy-duty power bank (10,000–20,000 mAh) with charging cables",
+          "detail": "Keeps mobile phones operational for emergency SOS texts and geolocation beacons.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_battery_radio",
+          "label": "Battery-operated portable FM/AM radio",
+          "detail": "Receives official All India Radio (AIR) civil defense bulletins when cell towers fail.",
+          "priority": "MEDIUM"
+        },
+        {
+          "id": "item_multi_tool",
+          "label": "Multi-purpose pocket knife / utility tool (pliers, screwdriver, can opener)",
+          "detail": "Assists with utility valve shutoff, cutting rope, and equipment repairs.",
+          "priority": "MEDIUM"
+        }
+      ]
+    },
+    {
+      "id": "documents_cash",
+      "name": "Vital Documents & Emergency Cash",
+      "icon": "documents",
+      "items": [
+        {
+          "id": "item_waterproof_docs",
+          "label": "Waterproof zip-lock pouch containing copies of Aadhaar, Passport, Insurance, Property deeds",
+          "detail": "Keep photocopies and an encrypted USB drive with digital scans.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_cash_coins",
+          "label": "Emergency cash in small denominations (₹100, ₹200, ₹500 notes)",
+          "detail": "ATMs and digital payment networks (UPI) will be non-functional during widespread power outages.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_emergency_contacts_card",
+          "label": "Laminated card with printed emergency contacts (Family, Doctors, Local Police, DDMA)",
+          "detail": "Essential when smartphones run out of battery or are water-damaged.",
+          "priority": "MEDIUM"
+        }
+      ]
+    },
+    {
+      "id": "protective_clothing",
+      "name": "Protective Clothing & Personal Hygiene",
+      "icon": "clothing",
+      "items": [
+        {
+          "id": "item_sturdy_shoes",
+          "label": "Sturdy closed-toe shoes or gumboots and heavy-duty work gloves",
+          "detail": "Protects against shattered glass, nails, broken masonry, and contaminated mud.",
+          "priority": "HIGH"
+        },
+        {
+          "id": "item_rainwear_blanket",
+          "label": "Lightweight raincoat/poncho and emergency thermal space blanket",
+          "detail": "Prevents hypothermia from wind, monsoon rains, and overnight exposure.",
+          "priority": "MEDIUM"
+        },
+        {
+          "id": "item_hygiene_kit",
+          "label": "Sanitary napkins, soap, hand sanitizer, antiseptic wet wipes, and small towel",
+          "detail": "Prevents skin infections and maintains hygiene in crowded community shelters.",
+          "priority": "MEDIUM"
+        }
+      ]
+    }
+  ]
+}

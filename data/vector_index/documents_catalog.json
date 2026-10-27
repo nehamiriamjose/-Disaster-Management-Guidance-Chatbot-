@@ -1,0 +1,38 @@
+{
+  "doc_4e7375445153": {
+    "doc_id": "doc_4e7375445153",
+    "filename": "CWC_NDMA_Flood_Management_Guide.pdf",
+    "title": "Standard Operating Procedure: Flood & Flash Flood",
+    "organization": "Central Water Commission (CWC) & NDMA, Government of India",
+    "disaster_category": "flood",
+    "source_url": "",
+    "file_size_bytes": 6854,
+    "total_pages": 3,
+    "total_chunks": 3,
+    "status": "indexed"
+  },
+  "doc_f7c2b3dc34b4": {
+    "doc_id": "doc_f7c2b3dc34b4",
+    "filename": "GSI_NDMA_Landslide_Protocols.pdf",
+    "title": "National Landslide Risk Reduction Strategy & SOP (Part 1)",
+    "organization": "Geological Survey of India (GSI) & NDMA, Government of India",
+    "disaster_category": "landslide",
+    "source_url": "",
+    "file_size_bytes": 6874,
+    "total_pages": 3,
+    "total_chunks": 3,
+    "status": "indexed"
+  },
+  "doc_c6f16e1b0614": {
+    "doc_id": "doc_c6f16e1b0614",
+    "filename": "NDMA_Earthquake_Safety_Manual.pdf",
+    "title": "National Disaster Management Guidelines: Earthquake",
+    "organization": "National Disaster Management Authority (NDMA), Government of India",
+    "disaster_category": "earthquake",
+    "source_url": "",
+    "file_size_bytes": 7196,
+    "total_pages": 3,
+    "total_chunks": 3,
+    "status": "indexed"
+  }
+}

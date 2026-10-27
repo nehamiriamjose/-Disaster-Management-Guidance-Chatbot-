@@ -1,0 +1,589 @@
+{
+  "id": "flood",
+  "name": "Flood & Flash Flood",
+  "category": "Hydrological Emergency",
+  "badge": "Rising Inundation Threat",
+  "icon": "flood",
+  "description": "Comprehensive decision logic for rising floodwaters, urban waterlogging, flash surges, stranded residents, and contaminated utilities.",
+  "root_node": "flood_start",
+  "nodes": {
+    "flood_start": {
+      "id": "flood_start",
+      "step": 1,
+      "prompt": "What is your current location and setting regarding the flood situation?",
+      "context": "Flood response differs fundamentally whether you are inside a shelter, traveling on foot, or inside a vehicle.",
+      "urgency": "URGENT",
+      "options": [
+        {
+          "id": "opt_home_building",
+          "text": "Inside a house, apartment, or commercial building",
+          "next_node": "flood_indoor_severity",
+          "description": "You are sheltered inside a fixed structure."
+        },
+        {
+          "id": "opt_on_foot",
+          "text": "Outdoors on foot (Road, alley, open terrain, or riverbank)",
+          "next_node": "flood_outdoor_severity",
+          "description": "You are walking or stranded outside in rising water."
+        },
+        {
+          "id": "opt_in_vehicle",
+          "text": "Inside a motor vehicle (Car, two-wheeler, or commercial transport)",
+          "next_node": "flood_vehicle_severity",
+          "description": "You are traveling or stranded inside a vehicle on waterlogged roads."
+        }
+      ]
+    },
+
+    "flood_indoor_severity": {
+      "id": "flood_indoor_severity",
+      "step": 2,
+      "prompt": "How high has the water risen inside or around your building?",
+      "context": "Water depth and rate of rise determine whether you should vertically evacuate to upper levels or signal for boat rescue.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_water_entering_ground",
+          "text": "Water is beginning to seep into the ground floor (Ankle deep / < 6 inches)",
+          "next_node": "flood_indoor_utility_check",
+          "description": "Inundation just starting; window of opportunity for utility isolation."
+        },
+        {
+          "id": "opt_rapidly_rising",
+          "text": "Water is rising rapidly (Knee-to-waist deep or fast flash surge)",
+          "next_node": "flood_guidance_vertical_evac",
+          "description": "Fast-moving water threatens ground-level escape."
+        },
+        {
+          "id": "opt_stranded_upper_roof",
+          "text": "Ground floor is submerged; stranded on upper floor or rooftop",
+          "next_node": "flood_indoor_rooftop_signaling",
+          "description": "Vertical evacuation already performed; awaiting external rescue."
+        }
+      ]
+    },
+
+    "flood_indoor_utility_check": {
+      "id": "flood_indoor_utility_check",
+      "step": 3,
+      "prompt": "Where is your main electrical distribution board located relative to the water?",
+      "context": "Electrocution through water is one of the most common causes of indoor flood deaths.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_breaker_dry_accessible",
+          "text": "Main breaker is high, dry, and safely accessible without standing in water",
+          "next_node": "flood_guidance_isolate_utilities_evac",
+          "description": "Safe to cut off electrical power and secure gas cylinders."
+        },
+        {
+          "id": "opt_breaker_wet_submerged",
+          "text": "Water has reached the electrical panel or wiring is submerged",
+          "next_node": "flood_guidance_submerged_electrical_hazard",
+          "description": "Touching electrical panels or walking in electrified water is lethal."
+        }
+      ]
+    },
+
+    "flood_indoor_rooftop_signaling": {
+      "id": "flood_indoor_rooftop_signaling",
+      "step": 4,
+      "prompt": "Are you on the open rooftop or trapped inside an enclosed attic / loft?",
+      "context": "Attics without roof hatch access can become drowning traps if floodwaters reach the roofline.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_open_rooftop_accessible",
+          "text": "On an open rooftop or balcony with unobstructed view of the sky",
+          "next_node": "flood_guidance_rooftop_rescue_ready",
+          "description": "Visible to aerial search and boat rescue teams."
+        },
+        {
+          "id": "opt_enclosed_attic_danger",
+          "text": "Trapped in an enclosed attic space with rising water below",
+          "next_node": "flood_guidance_attic_escape_protocol",
+          "description": "Need to break onto the roof surface immediately."
+        }
+      ]
+    },
+
+    "flood_outdoor_severity": {
+      "id": "flood_outdoor_severity",
+      "step": 2,
+      "prompt": "What are the characteristics of the outdoor water surrounding you?",
+      "context": "Moving water exerts immense hydrodynamic pressure. Just 15 cm (6 inches) can sweep a full-grown adult.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_moving_current",
+          "text": "Water is actively flowing or has a noticeable current (even ankle-deep)",
+          "next_node": "flood_guidance_never_cross_moving_water",
+          "description": "High risk of footing collapse, open manholes, and hydrodynamic sweep."
+        },
+        {
+          "id": "opt_stagnant_waterlogged",
+          "text": "Stagnant / standing water blocking your pathway to high ground",
+          "next_node": "flood_outdoor_hazards_check",
+          "description": "Hidden open manholes, biohazards, and displaced reptiles."
+        }
+      ]
+    },
+
+    "flood_outdoor_hazards_check": {
+      "id": "flood_outdoor_hazards_check",
+      "step": 3,
+      "prompt": "Are there submerged drains, downed electric poles, or snakes/wildlife visible?",
+      "context": "Displaced venomous snakes and energized urban stormwater present severe secondary risks.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_hazard_wires_drains",
+          "text": "Downed electrical cables nearby or dislodged manhole covers suspected",
+          "next_node": "flood_guidance_downed_wire_drain_hazard",
+          "description": "Extreme risk of electrocution or suction into stormwater drains."
+        },
+        {
+          "id": "opt_high_ground_visible",
+          "text": "No live wires; visible high ground or multi-story concrete structure nearby",
+          "next_node": "flood_guidance_seek_immediate_high_ground",
+          "description": "Direct path to an elevated refuge."
+        }
+      ]
+    },
+
+    "flood_vehicle_severity": {
+      "id": "flood_vehicle_severity",
+      "step": 2,
+      "prompt": "What is the vehicle's exact situation on the flooded roadway?",
+      "context": "Over half of all flood fatalities occur inside vehicles. 30 cm (12 inches) of water can float most passenger cars.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_approaching_flooded_road",
+          "text": "Driving towards a waterlogged or submerged section of the road",
+          "next_node": "flood_guidance_turn_around_dont_drown",
+          "description": "Water depth across the roadway ahead is unknown."
+        },
+        {
+          "id": "opt_vehicle_stalled_rising",
+          "text": "Vehicle has stalled / engine cut out in rising water",
+          "next_node": "flood_vehicle_escape_check",
+          "description": "Water is accumulating around vehicle doors."
+        },
+        {
+          "id": "opt_vehicle_swept_away",
+          "text": "Vehicle is floating or actively being swept by current",
+          "next_node": "flood_guidance_vehicle_floating_escape",
+          "description": "Immediate vehicle sinking and rollover threat."
+        }
+      ]
+    },
+
+    "flood_vehicle_escape_check": {
+      "id": "flood_vehicle_escape_check",
+      "step": 3,
+      "prompt": "Can you open the vehicle doors or are they jammed by water pressure?",
+      "context": "External water pressure against doors makes opening them physically impossible until pressure equalizes or window is breached.",
+      "urgency": "CRITICAL",
+      "options": [
+        {
+          "id": "opt_doors_can_open",
+          "text": "Doors can still be opened; water is below door sills",
+          "next_node": "flood_guidance_abandon_vehicle_immediately",
+          "description": "Safe window to exit on foot towards high ground."
+        },
+        {
+          "id": "opt_doors_jammed_rising",
+          "text": "Doors cannot be opened due to outside water pressure",
+          "next_node": "flood_guidance_vehicle_window_escape",
+          "description": "Need to escape through side windows immediately."
+        }
+      ]
+    },
+
+    "flood_guidance_isolate_utilities_evac": {
+      "id": "flood_guidance_isolate_utilities_evac",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "UTILITY ISOLATION & VERTICAL RELOCATION",
+        "severity": "URGENT",
+        "summary": "Water is beginning to enter ground level. You have a brief window to de-energize circuits and move up.",
+        "immediate_actions": [
+          "Stand on a dry wooden stool or rubber mat and switch off the main electrical breaker immediately.",
+          "Close the regulator knob on all LPG cylinders and move cylinders to an elevated platform if feasible.",
+          "Grab your pre-packed emergency 72-hour Go-Bag, medications, and vital documents in a waterproof pouch.",
+          "Move family members, children, and pets to the first floor or upper levels immediately.",
+          "Fill clean containers, bathtubs, or bottles with potable tap water before municipal supply is cut or contaminated."
+        ],
+        "actions_to_avoid": [
+          "DO NOT touch any electrical switches or appliances if standing in water or with wet hands.",
+          "DO NOT delay your move to upper levels to save heavy ground-floor furniture.",
+          "DO NOT attempt to drive your car out of the garage if the driveway is already submerged."
+        ],
+        "preventive_measures": [
+          "Unplug all electrical appliances and move valuable electronics to higher shelves.",
+          "Monitor Central Water Commission (CWC) or local DDMA flood bulletin."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Helpline", "number": "112"},
+          {"name": "NDRF Disaster Rescue", "number": "1078"},
+          {"name": "Central Water Commission Flood Control", "number": "011-26106523"}
+        ],
+        "official_reference": "National Disaster Management Authority (NDMA) — Management of Floods Guidelines & CWC Flood Protocol"
+      }
+    },
+
+    "flood_guidance_submerged_electrical_hazard": {
+      "id": "flood_guidance_submerged_electrical_hazard",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "EXTREME ELECTROCUTION DANGER — EVACUATE IMMEDIATELY",
+        "severity": "CRITICAL",
+        "summary": "Water has contacted electrical fixtures. Standing in or touching this water carries severe risk of fatal electrocution.",
+        "immediate_actions": [
+          "STAY COMPLETELY CLEAR of the submerged electrical panel and do NOT touch water connected to wall outlets.",
+          "Wade cautiously away from electrical panels toward higher dry surfaces, lifting your feet carefully.",
+          "Move upstairs immediately via interior dry stairs.",
+          "Call the local electric utility company or 112 from a dry mobile phone to request immediate neighborhood power line tripping.",
+          "Warn everyone in the house loudly to stay out of the ground floor water."
+        ],
+        "actions_to_avoid": [
+          "DO NOT try to reach the breaker box through standing water — even a tiny current can paralyze muscles and cause drowning.",
+          "DO NOT plug or unplug any corded electronics.",
+          "DO NOT use corded landline phones."
+        ],
+        "preventive_measures": [
+          "Assume all floodwaters in residential areas are electrically charged until utility transformers are confirmed shut down."
+        ],
+        "emergency_contacts": [
+          {"name": "Electricity Emergency / Fire", "number": "101"},
+          {"name": "National Emergency Helpline", "number": "112"},
+          {"name": "NDRF Helpline", "number": "1078"}
+        ],
+        "official_reference": "Central Electricity Authority Safety Directives & NDMA Flood Safety Protocols"
+      }
+    },
+
+    "flood_guidance_vertical_evac": {
+      "id": "flood_guidance_vertical_evac",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "EMERGENCY VERTICAL EVACUATION (RAPID RISE)",
+        "severity": "CRITICAL",
+        "summary": "Rapidly rising water or flash flood surge detected. Move immediately to the highest accessible level.",
+        "immediate_actions": [
+          "Move all occupants upstairs or to the rooftop immediately without pausing to pack belongings.",
+          "Take your mobile phone, charger, power bank, whistle, and any prescription medications if in your pocket.",
+          "Carry a bright flashlight or torch to signal rescue teams at night.",
+          "Once on an upper floor, secure the door against the stairs if it can slow water entry, but keep rooftop access open.",
+          "Call 112 or NDRF at 1078 to log your exact GPS location, building landmark, and number of trapped persons."
+        ],
+        "actions_to_avoid": [
+          "DO NOT go outside into the street — fast currents can knock you over or drag you into storm drains.",
+          "DO NOT hide in a closed basement or ground-floor bathroom.",
+          "DO NOT drink floodwater under any circumstances; it contains untreated sewage, chemical runoff, and pathogen bacteria."
+        ],
+        "preventive_measures": [
+          "Conserve phone battery by switching to battery saver and using text messages instead of voice calls."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Disaster Rescue", "number": "1078"},
+          {"name": "State Emergency Operations Centre (SEOC)", "number": "1070"}
+        ],
+        "official_reference": "NDMA Standard Operating Procedure for Flash Flood Evacuation"
+      }
+    },
+
+    "flood_guidance_rooftop_rescue_ready": {
+      "id": "flood_guidance_rooftop_rescue_ready",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "ROOFTOP SEARCH & RESCUE PREPARATION",
+        "severity": "URGENT",
+        "summary": "Stranded on open rooftop awaiting boat or helicopter rescue. Make your position clearly visible.",
+        "immediate_actions": [
+          "Tie a brightly colored bedsheet, cloth, or flag (white, orange, or red) to a flagpole, pole, or rooftop water tank.",
+          "Blow a whistle in bursts of 3 short blasts when you hear boats, drones, or helicopters.",
+          "At night, use a flashlight or smartphone screen to flash rhythmic light beams toward rescue personnel.",
+          "Keep small children, elderly, and pets away from slippery rooftop edges.",
+          "Cover yourselves with tarpaulin, umbrellas, or blankets to prevent hypothermia from prolonged rain exposure."
+        ],
+        "actions_to_avoid": [
+          "DO NOT attempt to swim across the flooded neighborhood to reach other buildings.",
+          "DO NOT climb onto frail tin sheds, asbestos sheets, or decorative parapets that cannot bear weight.",
+          "DO NOT attempt to board rescue boats by jumping into them; wait for rescue personnel to secure the boat."
+        ],
+        "preventive_measures": [
+          "Ration available drinking water and dry food supplies carefully.",
+          "Boil any water obtained from rain before drinking."
+        ],
+        "emergency_contacts": [
+          {"name": "NDRF Disaster Helpline", "number": "1078"},
+          {"name": "National Emergency Helpline", "number": "112"},
+          {"name": "Indian Coast Guard / Navy Maritime Rescue", "number": "1554"}
+        ],
+        "official_reference": "NDRF Inundation Rescue Protocols & NDMA Flood Guidelines"
+      }
+    },
+
+    "flood_guidance_attic_escape_protocol": {
+      "id": "flood_guidance_attic_escape_protocol",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "CRITICAL ATTIC BREACH PROTOCOL",
+        "severity": "CRITICAL",
+        "summary": "Rising water inside an enclosed attic space can cause drowning unless a hole is breached to the outer roof.",
+        "immediate_actions": [
+          "DO NOT remain enclosed in an attic with rising floodwaters if there is no pre-existing roof exit hatch.",
+          "Use a crowbar, axe, hammer, or heavy tool to break through roof tiles/shingles to get OUT onto the exterior roof surface.",
+          "Signal loudly from the open exterior roof once you emerge.",
+          "Pull everyone onto the roof and secure yourselves together with ropes or belts."
+        ],
+        "actions_to_avoid": [
+          "NEVER climb into a closed attic space that does not have an exterior roof hatch or tools to break out.",
+          "DO NOT wait until water is at chest height to attempt breaking the roof structure."
+        ],
+        "preventive_measures": [
+          "Once on the roof surface, signal with high-visibility fabrics."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Rescue Ops", "number": "1078"}
+        ],
+        "official_reference": "NDMA Flood Search & Rescue Directives"
+      }
+    },
+
+    "flood_guidance_never_cross_moving_water": {
+      "id": "flood_guidance_never_cross_moving_water",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "IMMEDIATE RULE: NEVER CROSS MOVING FLOODWATERS",
+        "severity": "CRITICAL",
+        "summary": "Moving water is deceptive and forceful. Just 15 cm (6 inches) of rapid current will sweep you off your feet.",
+        "immediate_actions": [
+          "TURN AROUND IMMEDIATELY. Do not step into or attempt to cross the flowing water channel.",
+          "Retreat along dry ground towards the nearest elevated building, masonry wall, or higher terrain.",
+          "If water is rising all around you and you cannot retreat, climb the nearest sturdy, permanent structure (concrete building, reinforced stairs).",
+          "If swept by current: Roll onto your back with feet pointed downstream to absorb impacts with rocks/debris, and angle yourself toward the shore."
+        ],
+        "actions_to_avoid": [
+          "DO NOT walk, wade, or swim across moving floodwaters under ANY circumstances.",
+          "DO NOT walk along canal banks, river embankments, or drainage culverts which can collapse without warning.",
+          "DO NOT touch wet metal railings or light poles which may be energized."
+        ],
+        "preventive_measures": [
+          "Always carry a walking stick or pole to probe ground depth and stability if forced to walk through murky, still water."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Helpline (NDRF)", "number": "1078"}
+        ],
+        "official_reference": "NDMA Flood Safety Protocol & CWC Flood Warning Guidelines"
+      }
+    },
+
+    "flood_guidance_downed_wire_drain_hazard": {
+      "id": "flood_guidance_downed_wire_drain_hazard",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "HIGH-VOLTAGE & MANHOLE SUCTION DANGER",
+        "severity": "CRITICAL",
+        "summary": "Submerged streets hide open manholes with powerful hydraulic suction, and fallen cables energize the water.",
+        "immediate_actions": [
+          "Stop immediately and maintain at least 10 meters distance from any fallen wire or transformer.",
+          "If you feel tingling in your legs or water, jump on one foot or shuffle feet closely together away from the area.",
+          "Look for swirling whirlpools or vortexes in the water — these indicate missing manhole covers with deadly suction.",
+          "Use a stick to test every step ahead of you before putting full weight down.",
+          "Climb onto elevated sidewalks, shop verandahs, or building porticos."
+        ],
+        "actions_to_avoid": [
+          "DO NOT walk through turbid floodwaters without probing depth with a stick.",
+          "DO NOT touch any metal utility pole, signpost, or fence in flooded areas.",
+          "DO NOT allow children to play, splash, or swim in floodwater."
+        ],
+        "preventive_measures": [
+          "Report displaced manhole covers and downed wires to municipal disaster control rooms immediately."
+        ],
+        "emergency_contacts": [
+          {"name": "Municipal Disaster Control Room / ERSS", "number": "112"},
+          {"name": "Fire & Electrical Rescue", "number": "101"}
+        ],
+        "official_reference": "NDMA Urban Flood Safety Advisory"
+      }
+    },
+
+    "flood_guidance_seek_immediate_high_ground": {
+      "id": "flood_guidance_seek_immediate_high_ground",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "HIGH-GROUND RELOCATION PROTOCOL",
+        "severity": "URGENT",
+        "summary": "Path to high ground is visible and free of live wires. Evacuate immediately before water depth increases.",
+        "immediate_actions": [
+          "Walk deliberately towards the elevated terrain or multi-story public shelter (school, temple, community hall).",
+          "Use a stick to probe for uneven ground, open gutters, or debris under the water surface.",
+          "Stay together in a group; hold hands or use a tether rope if moving with children or elderly persons.",
+          "Once on high ground, wash hands and legs with clean bottled water and soap as soon as possible to remove floodwater pathogens.",
+          "Check feet for cuts or punctures and apply antiseptic immediately."
+        ],
+        "actions_to_avoid": [
+          "DO NOT wade through floodwaters with bare feet; wear sturdy gumboots or closed footwear.",
+          "DO NOT consume fruits, vegetables, or food items that have come in contact with floodwater."
+        ],
+        "preventive_measures": [
+          "Report to the nearest local relief camp organized by the District Disaster Management Authority (DDMA)."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Disaster Management Helpline", "number": "1078"}
+        ],
+        "official_reference": "NDMA Community Inundation Response Guidelines"
+      }
+    },
+
+    "flood_guidance_turn_around_dont_drown": {
+      "id": "flood_guidance_turn_around_dont_drown",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "URGENT",
+      "guidance": {
+        "status": "MOTORIST SAFETY: TURN AROUND, DON'T DROWN",
+        "severity": "URGENT",
+        "summary": "Approaching waterlogged roadway. Never drive through flooded roads regardless of vehicle size.",
+        "immediate_actions": [
+          "TURN AROUND IMMEDIATELY and take an alternate, elevated route.",
+          "If an alternate route is not available, pull over safely on elevated dry ground, engage the handbrake, and wait.",
+          "Recognize that 30 cm (12 inches) of moving water can float a car, and 60 cm (24 inches) will sweep away trucks and SUVs.",
+          "The road underneath may be washed away, leaving a hidden chasm or sinkhole under the water.",
+          "Warn following vehicles by turning on hazard flashers."
+        ],
+        "actions_to_avoid": [
+          "DO NOT attempt to drive through waterlogged roads, flooded underpasses, or submerged bridges.",
+          "DO NOT drive around barricades or road-closed warning signs set up by police.",
+          "DO NOT underestimate the force of moving water."
+        ],
+        "preventive_measures": [
+          "Check live traffic and flood advisories on municipal or traffic police channels before commuting."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "Traffic Police Control Room", "number": "103"}
+        ],
+        "official_reference": "NDMA Motorist Flood Safety Protocol & IRC Guidelines"
+      }
+    },
+
+    "flood_guidance_abandon_vehicle_immediately": {
+      "id": "flood_guidance_abandon_vehicle_immediately",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "IMMEDIATELY ABANDON STALLED VEHICLE",
+        "severity": "CRITICAL",
+        "summary": "Vehicle stalled in rising water. You must exit immediately before water pressure jams doors shut.",
+        "immediate_actions": [
+          "Unbuckle your seatbelt and unlock all car doors immediately.",
+          "Open the door and step out onto the roadway while water level is still below the door sill.",
+          "Abandon the vehicle and move quickly on foot to higher ground.",
+          "Help fellow passengers exit immediately, taking small children in arms.",
+          "Do not waste time trying to restart the engine or retrieve luggage; floodwater entering the exhaust/air intake has already seized the motor."
+        ],
+        "actions_to_avoid": [
+          "DO NOT stay inside a stalled car hoping the water will recede; vehicles easily become lethal floating traps.",
+          "DO NOT attempt to push the car out of the water.",
+          "DO NOT leave car keys behind in a locked door; leave vehicle unlocked for emergency towing."
+        ],
+        "preventive_measures": [
+          "Once on safe high ground, notify 112 with your vehicle's location so other motorists do not collide with it."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Helpline", "number": "112"},
+          {"name": "Disaster Rescue (NDRF)", "number": "1078"}
+        ],
+        "official_reference": "NDMA Standard Operating Procedure for Vehicle Flood Rescue"
+      }
+    },
+
+    "flood_guidance_vehicle_window_escape": {
+      "id": "flood_guidance_vehicle_window_escape",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "SUBMERGED VEHICLE WINDOW ESCAPE PROTOCOL",
+        "severity": "CRITICAL",
+        "summary": "Doors are jammed by outside water pressure. Escape through the side windows immediately.",
+        "immediate_actions": [
+          "Roll down the electric power windows IMMEDIATELY before vehicle electronics short-circuit.",
+          "If electric windows fail, remove your car seat headrest and use its pointed metal prongs to smash the corner of a SIDE window.",
+          "Never try to smash the windshield; windshields are laminated safety glass and cannot be broken easily.",
+          "Push out glass fragments with your shoe and climb out through the window onto the roof of the car.",
+          "From the vehicle roof, assess water depth and current, and signal for rescue or leap to adjacent high structures."
+        ],
+        "actions_to_avoid": [
+          "DO NOT panic and waste energy kicking against locked, water-pressurized doors.",
+          "DO NOT attempt to break windows with your bare fist.",
+          "DO NOT jump blindly into deep, fast-flowing torrents."
+        ],
+        "preventive_measures": [
+          "Keep an automotive emergency window-punch and seatbelt cutter in your vehicle's glovebox or center console."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Helpline", "number": "112"},
+          {"name": "Fire & Rescue Service", "number": "101"}
+        ],
+        "official_reference": "NDRF Vehicle Extraction Standard Operating Procedure"
+      }
+    },
+
+    "flood_guidance_vehicle_floating_escape": {
+      "id": "flood_guidance_vehicle_floating_escape",
+      "step": 4,
+      "is_terminal": true,
+      "urgency": "CRITICAL",
+      "guidance": {
+        "status": "FLOATING VEHICLE EMERGENCY ESCAPE",
+        "severity": "CRITICAL",
+        "summary": "Vehicle is floating or caught in flood current. The vehicle will quickly roll over or sink engine-first.",
+        "immediate_actions": [
+          "SEATBELTS OFF: Immediately unbuckle everyone's seatbelts.",
+          "WINDOWS OPEN: Roll or kick out side windows before the car sinks below the water line.",
+          "CHILDREN FIRST: Push older children through the window onto the vehicle roof, then climb out yourself.",
+          "Get on the vehicle roof to maintain visibility for rescuers and stay above the water line as long as possible.",
+          "If the vehicle sinks completely, take a deep breath as water equalizes at roof level, open the door, and swim to the surface."
+        ],
+        "actions_to_avoid": [
+          "DO NOT try to save luggage, laptops, or belongings.",
+          "DO NOT stay in the car seat expecting air pockets to last; water fills cabins in less than 60-90 seconds."
+        ],
+        "preventive_measures": [
+          "When swimming away from a sinking car, swim with the current at a diagonal angle towards riverbanks or trees."
+        ],
+        "emergency_contacts": [
+          {"name": "National Emergency Number", "number": "112"},
+          {"name": "NDRF Disaster Helpline", "number": "1078"}
+        ],
+        "official_reference": "NDMA & NDRF Aquatic Rescue Directives"
+      }
+    }
+  }
+}

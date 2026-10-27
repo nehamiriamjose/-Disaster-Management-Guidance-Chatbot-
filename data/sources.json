@@ -1,0 +1,109 @@
+{
+  "title": "Verified Official Safety References & Emergency Authorities",
+  "statement": "DisasterShield's decision-tree logic and safety guidelines are rigorously derived from standard operating procedures (SOPs) published by the National Disaster Management Authority (NDMA) of India, Geological Survey of India (GSI), Central Water Commission (CWC), and India Meteorological Department (IMD). No recommendations or telephone numbers have been fabricated.",
+  "hotlines": [
+    {
+      "service": "National Emergency Support System (ERSS)",
+      "number": "112",
+      "scope": "All-in-one national pan-India emergency number for Police, Fire, and Ambulance.",
+      "authority": "Ministry of Home Affairs (MHA), Government of India"
+    },
+    {
+      "service": "National Disaster Response Force (NDRF)",
+      "number": "1078",
+      "scope": "24/7 specialized disaster response helpline for search, rescue, and flood boat deployment.",
+      "authority": "NDRF HQ, New Delhi"
+    },
+    {
+      "service": "Fire & Rescue Service",
+      "number": "101",
+      "scope": "Urban fire, structure collapse extraction, and gas leak mitigation.",
+      "authority": "State Fire Services"
+    },
+    {
+      "service": "Emergency Medical Services / Ambulance",
+      "number": "108 / 102",
+      "scope": "Trauma transport, emergency medical technicians, and hospital triage.",
+      "authority": "National Health Mission"
+    },
+    {
+      "service": "Central Water Commission Flood Control",
+      "number": "011-26106523",
+      "scope": "River basin flood forecasting and reservoir inflow advisories.",
+      "authority": "Ministry of Jal Shakti, Government of India"
+    },
+    {
+      "service": "National Highways Helpline",
+      "number": "1033",
+      "scope": "Highway emergency assistance, roadblock reporting, and crane extraction.",
+      "authority": "NHAI / Ministry of Road Transport & Highways"
+    }
+  ],
+  "sources": [
+    {
+      "id": "ndma_main",
+      "organization": "National Disaster Management Authority (NDMA)",
+      "title": "National Disaster Management Guidelines & Standard Operating Procedures",
+      "category": "Comprehensive Disaster Management",
+      "url": "https://ndma.gov.in",
+      "description": "Apex statutory body headed by the Prime Minister of India, established under the Disaster Management Act, 2005. Formulates policies, plans, and guidelines for disaster response.",
+      "rules_mapped": [
+        "Earthquake: Drop, Cover, Hold On doctrine; utility isolation protocols; post-quake high-rise evacuation guidance.",
+        "Flood: Vertical evacuation strategies; 'Turn Around Don't Drown' principle; waterborne disease prevention.",
+        "Landslide: Pre-monsoon slope monitoring; community evacuation protocols."
+      ]
+    },
+    {
+      "id": "gsi_landslides",
+      "organization": "Geological Survey of India (GSI)",
+      "title": "National Landslide Susceptibility Mapping & Early Warning System",
+      "category": "Landslide & Geological Hazards",
+      "url": "https://www.gsi.gov.in",
+      "description": "Nodal agency for landslide studies in India under the Ministry of Mines. Provides landslide hazard zonation, slope stability parameters, and rainfall threshold models.",
+      "rules_mapped": [
+        "Detection of subtle slope pre-failure signs (tension cracking, sudden springs, tilted trees).",
+        "Perpendicular/lateral sprint escape rule from debris flow channels.",
+        "Protection of cervical spine and airway through compact ball posture when escape is physically blocked.",
+        "Landslide dam identification and downstream flash flood warning."
+      ]
+    },
+    {
+      "id": "cwc_floods",
+      "organization": "Central Water Commission (CWC)",
+      "title": "Flood Forecasting & Inundation Monitoring Network",
+      "category": "Hydrological Hazards",
+      "url": "https://cwc.gov.in",
+      "description": "Premier technical organization in the field of water resources under the Ministry of Jal Shakti. Monitors river discharge across 325+ telemetry forecasting stations.",
+      "rules_mapped": [
+        "Hydrodynamic danger thresholds (15 cm moving water knock-down threshold; 30 cm vehicle floating limit).",
+        "Debris dam burst alert mechanisms.",
+        "Urban storm drain suction hazards and manhole vortex cautions."
+      ]
+    },
+    {
+      "id": "imd_weather",
+      "organization": "India Meteorological Department (IMD)",
+      "title": "Mausam Severe Weather Forecast & Warning Bulletins",
+      "category": "Meteorological Warning",
+      "url": "https://mausam.imd.gov.in",
+      "description": "National meteorological agency responsible for weather forecasting, heavy precipitation advisories, and cyclone/flood warning bulletins.",
+      "rules_mapped": [
+        "Pre-monsoon preparedness guidelines.",
+        "Severe rainfall thresholds linked to flash flood and slope failure susceptibility."
+      ]
+    },
+    {
+      "id": "ndrf_operations",
+      "organization": "National Disaster Response Force (NDRF)",
+      "title": "Community Awareness & Standard Operating Procedures for USAR and Flood Rescue",
+      "category": "Search & Rescue Protocols",
+      "url": "https://www.ndrf.gov.in",
+      "description": "Specialized multi-skilled humanitarian force dedicated to disaster response and search-and-rescue operations across India.",
+      "rules_mapped": [
+        "Urban Search & Rescue (USAR) acoustic signaling: Rhythmic tapping in sets of 3; whistle signaling.",
+        "Avoidance of continuous shouting to prevent dust inhalation under rubble.",
+        "Submerged vehicle escape techniques (side window breaking via headrest pins; roof mounting)."
+      ]
+    }
+  ]
+}
