@@ -1,169 +1,178 @@
-# DisasterShield — Advanced RAG-Powered Disaster Management Assistant
-## Academic Project Report & Comprehensive Architectural Specification
+# DisasterShield — Disaster Management Guidance Chatbot
+## Academic Project Report & Comprehensive System Specification
 
-**Coursework**: Advanced College Assignment in Expert Systems & Retrieval-Augmented Generation (RAG)  
-**Project Title**: DisasterShield — Hybrid Intelligent Disaster Management Guidance & Knowledge System  
-**System Architecture**: Dual-Mode Hybrid Architecture (Deterministic Rule Engine + Advanced RAG Pipeline)  
-**Technology Stack**: Python 3.14, Flask, FAISS, Scikit-Learn, PyPDF, Vanilla HTML5/CSS3/JavaScript  
+**Coursework**: Advanced College Assignment in Expert Systems & Decision-Tree Automation  
+**Project Title**: DisasterShield — Deterministic Emergency Guidance Chatbot  
+**System Architecture**: Pure Deterministic State-Machine Decision-Tree Expert System  
+**Technology Stack**: Python 3.10+ / 3.14, Flask, Vanilla HTML5 / Modern CSS3 / ES6+ JavaScript, Pytest  
 **Academic Date**: October 2026  
 
 ---
 
-## 1. Executive Summary & Project Objective
+## 1. Executive Summary & Problem Formulation
 
-Natural hazards—specifically **earthquakes**, **floods**, and **landslides**—pose catastrophic threats across the Indian subcontinent. In emergency contexts, generic generative language models present profound risks: hallucinating emergency numbers, fabricating evacuation protocols, claiming non-existent live weather tracking, or failing entirely during network outages.
+Natural hazards—specifically **earthquakes**, **floods**, and **landslides**—pose severe life-safety threats across vulnerable regions. During active crisis events, generic generative language models present profound hazards:
+- **Hallucinated Hotlines**: Fabricating defunct or fictitious telephone numbers instead of verified emergency helplines (`112`, `1078`).
+- **Dangerous Speculation**: Formulating improvised evacuation advice that violates civil defense protocols (e.g., advising people to run into streets during active seismic tremors or attempt to drive through moving floodwaters).
+- **Network Dependency**: Generative cloud APIs fail entirely when cellular towers, power grids, or internet backbones collapse during disaster events.
+- **High Latency & Inconsistent Outputs**: Variable generation latency and non-deterministic variations when users need instant, standardized life-safety instructions.
 
-The objective of **DisasterShield** is to deliver a production-grade, locally runnable, **hybrid disaster management assistant** combining:
-1. **Mode A: Deterministic Rule-Based Emergency Guidance Engine**: An offline-first, zero-latency decision tree that evaluates situational urgency through structured multiple-choice questions, executing explicit Python logic to guide users through life-or-death decisions without generative AI unpredictability.
-2. **Mode B: Disaster Knowledge Assistant (Advanced RAG Pipeline)**: A document-grounded question-answering assistant that retrieves verified official guidelines published by statutory Indian authorities (**NDMA**, **GSI**, **CWC**, and **NDRF**) using hybrid vector search, delivering evidence-backed answers with exact page citations.
-3. **Official Document Repository (Admin Ingestion)**: A secure document management interface enabling administrators to upload official PDF guidelines, view chunking statistics, delete obsolete documents with automatic index synchronization, and rebuild vector stores.
+**DisasterShield** resolves these life-critical issues by implementing an **offline-first, 100% deterministic rule-based expert decision tree chatbot system**. Through structured, multi-choice situational triage, DisasterShield guides individuals through validated survival protocols published by statutory Indian disaster management authorities: the **National Disaster Management Authority (NDMA)**, **Geological Survey of India (GSI)**, **Central Water Commission (CWC)**, and **National Disaster Response Force (NDRF)**.
 
 ---
 
-## 2. Hybrid Dual-Mode Architecture
+## 2. Deterministic Expert System Architecture
 
-The core design principle of DisasterShield is the **strict architectural separation of immediate crisis navigation from general academic/preparedness research**:
+The core engineering principle of DisasterShield is **absolute determinism, zero hallucinations, and complete offline survivability**.
 
 ```
 +===================================================================================+
 |                               DISASTERSHIELD CLIENT                               |
 |                  (Responsive Vanilla HTML5 / Modern CSS / ES6+ JS)                |
 +===================================================================================+
-        |                                                           |
-   [Mode A Requests]                                           [Mode B Requests]
-        |                                                           |
-        v                                                           v
-+-------------------------------+       +-------------------------------------------+
-|    MODE A: EMERGENCY ENGINE   |       |         MODE B: ADVANCED RAG PIPELINE     |
-|   (Deterministic State Graph) |       |  (Hybrid FAISS Retrieval & Synthesis)     |
-+-------------------------------+       +-------------------------------------------+
-| • 35 Canonical Decision Paths |       | Stage 1: PDF Text Extraction & Validation |
-| • Earthquake, Flood, Landslide|       | Stage 2: Semantic Chunking (800 / 120 ov) |
-| • Urgency Classification      |       | Stage 3: Local TF-IDF L2 Embeddings (1024)|
-| • Offline JSON Knowledge Bases|       | Stage 4: Persistent FAISS Index (Cosine)  |
-| • Audit-Grade Text Transcripts|       | Stage 5: Hybrid Retrieval (Dense+Sparse)  |
-| • Mermaid Flowchart Generation|       | Stage 6: Prompt Isolation & Anti-Injection|
-|                               |       | Stage 7: Grounded Answer Synthesis        |
-+-------------------------------+       +-------------------------------------------+
-        |                                                           |
-        +-----------------------------+-----------------------------+
-                                      |
-                                      v
-              +===============================================+
-              |           STATUTORY SAFETY AUTHORITY          |
-              |   NDMA (Earthquake) | CWC (Flood) | GSI (Mud)  |
-              |   Verified Emergency Helplines: 112, 1078, 101|
-              +===============================================+
+                                        |
+                             [REST API JSON Requests]
+                                        |
+                                        v
++-----------------------------------------------------------------------------------+
+|               DISASTERSHIELD RULE-BASED EMERGENCY GUIDANCE ENGINE                 |
+|                             (chatbot_engine.py)                                   |
++-----------------------------------------------------------------------------------+
+| • Pure Python State Machine Traversal (Zero External AI API Dependencies)         |
+| • 35 Canonical Decision Paths across 4 Hierarchical Decision Stages               |
+| • Situational Urgency Triage (NORMAL, PRECAUTIONARY, URGENT, CRITICAL)            |
+| • Dynamic Interactive Flowchart Visualizer & Mermaid Syntax Generator             |
+| • Audit-Grade Session Transcript Generator & Text Exporter                        |
+| • 72-Hour Emergency Go-Bag Checklist with Local Storage Persistence               |
++-----------------------------------------------------------------------------------+
+                                        |
+                                        v
++-----------------------------------------------------------------------------------+
+|                          STRUCTURED KNOWLEDGE BASES                               |
+|       earthquake.json (13 paths) | flood.json (12 paths) | landslide.json (10)    |
+|               checklist.json (Go-Bag) | sources.json (Hotlines)                   |
++-----------------------------------------------------------------------------------+
+                                        |
+                                        v
++===================================================================================+
+|                            STATUTORY AUTHORITIES                                  |
+|   NDMA (Earthquake) | CWC (Flood) | GSI (Landslide) | NDRF (Tactical Rescue)      |
+|              Verified Official Helplines: 112, 1078, 101, 108                     |
++===================================================================================+
 ```
 
-### Mode Comparison Matrix
-
-| Architectural Dimension | Mode A: Emergency Guidance | Mode B: Knowledge Assistant (RAG) |
-| :--- | :--- | :--- |
-| **Primary Use Case** | Active physical peril, immediate structural danger | Preparedness, mitigation, recovery protocols |
-| **User Input Style** | Multi-choice situation buttons (zero typing required) | Natural-language query string with category filters |
-| **Execution Model** | Explicit deterministic state-machine graph traversal | Hybrid dense vector + sparse keyword search |
-| **AI / Model Role** | Zero LLM involvement; 100% deterministic Python | Local grounded extractive synthesizer or hosted LLM |
-| **Citation Granularity** | SOP Section & Statutory Framework reference | Exact source PDF title, issuing body, and page number |
-| **Emergency Fallback** | Fully functional offline with zero network connectivity| Automatic detection redirects user to 112 / 1078 |
+### Architectural Benefits Over Generative AI:
+1. **Mathematical Reproducibility**: Given an identical sequence of situational inputs, the engine guarantees identical, validated life-safety guidance every time.
+2. **Zero Latency**: Sub-millisecond response times executed entirely in local memory.
+3. **Auditability & Traceability**: Every decision node maps directly to statutory standard operating procedures (SOPs).
+4. **Resilience to Infrastructure Failure**: Runs 100% locally with zero internet, token budgets, or external API keys required.
 
 ---
 
-## 3. Seven-Stage Advanced RAG Pipeline Specification
+## 3. Decision-Tree Hierarchy & Disaster Coverage
 
-The RAG module (`rag/`) is organized into dedicated, decoupled components:
+The system models crisis response across **4 hierarchical stages**:
+- **Stage 1 (Root Assessment)**: Macro-environmental location triage (e.g., indoors vs. outdoors vs. transit).
+- **Stage 2 (Immediate Hazard Triage)**: Evaluation of physical stability and structural peril (e.g., trapped under rubble, active tremors, water depth).
+- **Stage 3 (Secondary Hazard Check)**: Detection of cascading secondary risks (e.g., gas leaks, electrical fires, road washouts).
+- **Stage 4 (Terminal Guidance)**: Multi-faceted emergency action directive.
 
-### Stage 1: Document Ingestion & Validation (`rag/document_loader.py`)
-- **Format Verification**: Validates file extension (`.pdf`), maximum file size (bounded at 15 MB), and magic byte headers (`%PDF-`).
-- **Path Traversal Defense**: Sanitizes filenames using regex `[^a-zA-Z0-9_\-\.]` and strips directory traversal tokens (`../`, `..\\`).
-- **Scanned PDF Rejection**: Analyzes extracted character counts across all pages. If text density is zero, raises `ScannedPDFError` indicating that OCR processing is required, preventing corrupted empty embeddings.
-- **Metadata Extraction**: Computes SHA-256 hash for document deduplication and infers issuing organization and disaster category from content headers.
+### 3.1 Earthquake Safety Decision Tree (13 Paths)
+- **Indoor Stability**: Drop, Cover & Hold On under sturdy furniture; interior load-bearing wall crouch; bed survival posture with pillow head-shield.
+- **Utility & Fire Defense**: Immediate domestic gas cylinder shutoff and breaker disconnection; prohibition of matches or open flames due to gas accumulation.
+- **USAR Acoustic Signaling**: Rhythmic acoustic tapping (3 taps per minute) on metal pipes or structural beams to guide search-and-rescue dogs and acoustic listening devices.
+- **Outdoor Hazards**: Immediate clearance of building envelopes (falling masonry/glass hazard zone), electric transmission lines, and overpasses.
 
-### Stage 2: Text Cleaning & Semantic Chunking (`rag/chunker.py`)
-- **Boundary-Aware Splitting**: Splits text on paragraph breaks and sentence terminators (`.`, `!`, `?`), ensuring that vital safety instructions ("DO NOT run outside") are never severed into misleading fragments ("run outside").
-- **Configurable Geometry**: Default chunk size of ~800 tokens (~3,200 characters) with ~120 tokens (~480 characters) overlap.
-- **Traceability Inheritance**: Every chunk inherits its parent `doc_id`, `filename`, `title`, `organization`, `disaster_category`, `source_url`, and explicit `page_number`.
+### 3.2 Flood & Flash Flood Decision Tree (12 Paths)
+- **Motorist Flooding**: Strict implementation of the statutory "Turn Around, Don't Drown" protocol. Highlights that 30 cm of moving water floats standard vehicles and 60 cm sweeps away heavy vehicles/SUVs.
+- **Vertical Evacuation**: Directs occupants of multi-story structures to top floors or rooftops if ground levels are inundated, with bright visual signaling (cloth, mirrors, flashlights).
+- **Submerged Electrical Isolation**: Prohibits touching submerged electrical breaker panels or wading through water touching live appliances.
+- **Water Decontamination**: Standard water purification guidelines (vigorous 1-minute rolling boil or 4 drops chlorine disinfectant per liter).
 
-### Stage 3: Embedding Generation (`rag/embeddings.py`)
-- **Zero-API Local Architecture**: Implements `LocalTFIDFEmbeddingProvider` producing 1024-dimensional float32 vector representations.
-- **Domain Seeding**: Initialized with high-priority Indian disaster vocabulary (NDMA, Richter, inundation, tension crack, lateral sprint, Go-Bag) ensuring rich representations from first startup.
-- **L2 Unit Normalization**: Every document vector and query vector is normalized to $\|v\|_2 = 1.0$, allowing dot products to evaluate exactly to cosine similarity.
-- **Model Persistence**: Serializes the fitted vectorizer to `data/vector_index/local_embedder.pkl` to prevent redundant retraining.
-
-### Stage 4: Persistent Vector Database (`rag/vector_store.py`)
-- **Engine**: Persistent FAISS index (`faiss.IndexFlatIP`) implementing inner-product metric on normalized vectors.
-- **Catalog & Metadata Storage**: Paired with `chunks_metadata.json` and `documents_catalog.json` storing complete chunk records and issuing authority details.
-- **Idempotency & Deduplication**: If an updated document with matching checksum or identifier is re-uploaded, existing vector records are excised before new vectors are appended.
-- **Safe Rebuilding**: `rebuild_index()` reconstructs the vector index from all original documents stored on disk.
-
-### Stage 5: Hybrid Retrieval Engine (`rag/hybrid_retriever.py`)
-- **Score Fusion**: Combines dense FAISS cosine similarity ($S_{dense}$) with sparse term-frequency keyword matching ($S_{sparse}$) using configurable interpolation weight $\alpha = 0.60$:
-  $$S_{hybrid} = \alpha \cdot S_{dense} + (1 - \alpha) \cdot S_{sparse}$$
-- **Disaster Affinity Weighting**: Detects explicit disaster names in user queries and grants a $+0.15$ affinity boost to matching document categories while penalizing mismatched disasters.
-- **Strict Relevance Threshold**: Enforces a minimum threshold ($0.10$). If no passage achieves this score, the system declines to generate speculative text and flags `evidence_found = False`.
-
-### Stage 6: Context Construction & Prompt Defense (`rag/context_builder.py`)
-- **Untrusted Passage Isolation**: Wraps retrieved document excerpts inside protective demarcation blocks:
-  ```
-  [Source 1]: "NDMA Earthquake Guidelines" | Page 2 | Section: Shaking Protocol
-  <<<DOC_PASSAGE_START>>>
-  When ground shaking commences, immediate life-safety action dictates...
-  <<<DOC_PASSAGE_END>>>
-  ```
-- **Prompt Injection Defense**: Explicit system directives instruct the generator to treat all document text as untrusted data, ignoring embedded commands attempting to alter system instructions.
-- **Immediate Life-Safety Interception**: `ContextBuilder.check_emergency_intent()` scans incoming prompts for critical distress indicators (`trapped`, `bleeding`, `crushed`, `gas leak`, `water rising`, `collapse`). When detected, an emergency alert banner is immediately prepended with direct hotlines (`112`, `1078`).
-
-### Stage 7: Grounded Answer Synthesis (`rag/generator.py`)
-- **Local Grounded Synthesizer**: Extracts verified imperative directives, structures them into actionable bullet points, segregates critical prohibitions ("Warnings to Strictly Avoid"), and affixes citations.
-- **Hosted LLM Compatibility**: Supports optional integration with OpenAI (`gpt-4o-mini`) or Google Gemini (`gemini-1.5-flash`) via standard environment variables.
-- **Honest Refusal Doctrine**: When the knowledge base lacks supporting evidence, states clearly: *"The official indexed knowledge base does not contain sufficient supporting information to answer this question."*
+### 3.3 Landslide & Debris Flow Decision Tree (10 Paths)
+- **Pre-Failure Indicators**: Recognition of hillside tension cracks, tilting trees/poles, bulging retaining walls, and stuck doorframes.
+- **Active Flow Escape**: Urgent lateral perpendicular escape sprint across the path of the slide rather than running downhill in the flow line.
+- **Valley Debris Dams**: Immediate upslope evacuation upon noticing sudden river flow cessation or muddy surge warnings.
+- **Impact Bracing**: Compact fetal curl protecting the head with intertwined arms if escape is physically blocked.
 
 ---
 
-## 4. Official Knowledge Base & Indian Statutory Sources
+## 4. Structured Output Specification
 
-DisasterShield is pre-populated with verified, authentic disaster guidelines published by statutory authorities of the Government of India:
+Every completed decision-tree path yields a structured, audit-grade guidance payload comprising:
 
-| Document Title | Issuing Body | Primary Scope & Verified Protocols | Indexed Pages / Chunks |
-| :--- | :--- | :--- | :--- |
-| **NDMA Earthquake Safety Manual** | National Disaster Management Authority (NDMA) | Seismic zones III–V, Drop-Cover-Hold On protocol, indoor wall shielding, gas line shutoff, post-quake structural void tapping. | 3 Pages / 3 Chunks |
-| **CWC & NDMA Flood Management Guide** | Central Water Commission (CWC) & NDMA | Flash flood thresholds, "Turn Around, Don't Drown", vehicle float depths (30 cm / 60 cm), vertical rooftop evacuation, water purification. | 3 Pages / 3 Chunks |
-| **GSI Landslide Hazard Protocols** | Geological Survey of India (GSI) | Slope failure indicators, tension cracks, lateral perpendicular sprint, valley debris dam monitoring, post-slide slope stability. | 3 Pages / 3 Chunks |
-
-### Verified Statutory Emergency Hotlines
-- **112**: Emergency Response Support System (ERSS - Single Pan-India Emergency Number).
-- **1078**: National Disaster Response Force (NDRF) 24/7 Operations Control Room.
-- **101**: Fire & Rescue Services.
-- **108 / 102**: Emergency Medical Services & Ambulance Triage.
+1. **Status & Severity**: Visual status banner with color-coded severity tag (`NORMAL`, `PRECAUTIONARY`, `URGENT`, `CRITICAL`).
+2. **Executive Summary**: Clear, concise 2-sentence synopsis of the current operational posture.
+3. **Immediate Life-Safety Actions**: Bulleted imperative actions to perform immediately.
+4. **Actions to Strictly AVOID**: Explicit prohibitions preventing fatal user mistakes (e.g., *"DO NOT use elevators"*, *"DO NOT drink unboiled tap water"*).
+5. **Preventive & Recovery Measures**: Follow-up safety steps after immediate stabilization.
+6. **Verified Single-Tap Hotlines**: Click-to-call links directly connected to verified emergency numbers (`tel:112`, `tel:1078`, `tel:101`, `tel:108`).
+7. **Statutory Reference**: Citation to the governing official manual (e.g., *NDMA National Earthquake Guidelines 2019, Section 4.2*).
 
 ---
 
-## 5. Automated Test Suite & Evaluation Benchmark
+## 5. Additional System Capabilities
 
-DisasterShield includes a test suite of **49 automated tests** executed via `pytest`:
+### 5.1 72-Hour Emergency Go-Bag Checklist
+An interactive supply catalog derived from NDMA recommendations, divided into 5 critical preparedness categories:
+- Water & Hydration (3 liters/day per person for 72 hours)
+- Food & Sustenance (Non-perishable, high-calorie canned food)
+- First Aid & Medical Supplies (Trauma bandages, antiseptic, personal prescriptions)
+- Tools & Emergency Equipment (Hand-crank radio, LED flashlight, emergency whistle)
+- Essential Documents & Personal Items (Photocopies of identification, emergency cash, water-resistant pouch)
 
+The checklist features real-time percentage readiness tracking and persists user check states across browser sessions via HTML5 `localStorage`.
+
+### 5.2 Dynamic Flowchart Visualization Engine
+- **Visual Hierarchical View**: Interactive collapsible decision tree rendered directly in the browser via `flowchart.js`.
+- **Mermaid Diagram Export**: Generates raw, copyable Mermaid graph syntax for direct embedding in GitHub Markdown reports and civil defense documentation.
+
+### 5.3 Session Transcript Generation
+- Automatically tracks timestamps, sender identity (User / Bot), question prompts, option IDs, and final guidance.
+- One-click copy to clipboard and downloadable `.txt` transcript file for post-incident auditing or coursework review.
+
+---
+
+## 6. Automated Testing Suite
+
+The application is validated by an automated test suite of **20 tests** executed via `pytest`:
+
+```text
+============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.0.2, pluggy-1.6.0
+collected 20 items
+
+tests/test_api.py::TestDisasterShieldAPI::test_chat_step_progression PASSED [  5%]
+tests/test_api.py::TestDisasterShieldAPI::test_checklist_endpoint PASSED [ 10%]
+tests/test_api.py::TestDisasterShieldAPI::test_flowchart_endpoint PASSED [ 15%]
+tests/test_api.py::TestDisasterShieldAPI::test_get_disasters PASSED      [ 20%]
+tests/test_api.py::TestDisasterShieldAPI::test_health_endpoint PASSED    [ 25%]
+tests/test_api.py::TestDisasterShieldAPI::test_index_page PASSED         [ 30%]
+tests/test_api.py::TestDisasterShieldAPI::test_sources_endpoint PASSED   [ 35%]
+tests/test_api.py::TestDisasterShieldAPI::test_start_chat_invalid_disaster PASSED [ 40%]
+tests/test_api.py::TestDisasterShieldAPI::test_start_chat_missing_payload PASSED [ 45%]
+tests/test_api.py::TestDisasterShieldAPI::test_start_chat_success PASSED [ 50%]
+tests/test_api.py::TestDisasterShieldAPI::test_transcript_generation PASSED [ 55%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_all_decision_tree_paths_valid PASSED [ 60%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_datasets_loaded PASSED [ 65%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_earthquake_branching_outcomes PASSED [ 70%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_error_handling_invalid_inputs PASSED [ 75%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_flood_turn_around_dont_drown_branch PASSED [ 80%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_landslide_lateral_sprint_branch PASSED [ 85%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_mermaid_generation PASSED [ 90%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_sources_and_checklist_loaded PASSED [ 95%]
+tests/test_rule_engine.py::TestDisasterRuleEngine::test_transcript_formatting PASSED [100%]
+
+============================= 20 passed in 0.35s ==============================
 ```
-tests/test_api.py ..................... [11 tests passed]
-tests/test_rule_engine.py ............. [ 9 tests passed]
-tests/test_rag_pipeline.py ............ [20 tests passed]
-tests/test_evaluation.py .............. [ 9 tests passed]
-
-============================= 49 passed in 3.27s =============================
-```
-
-### Test Coverage Highlights:
-1. **Rule Engine Integrity**: Verifies all 35 decision tree paths, urgency tagging, and transcript export.
-2. **Document Ingestion Security**: Tests PDF header validation, rejection of non-PDFs and empty files, and graceful error handling for scanned image PDFs.
-3. **Chunking & Vector Geometry**: Verifies metadata preservation, 1024-dimension vector alignment, and L2 unit normalization ($\|v\|_2 = 1.0$).
-4. **Hybrid Retrieval**: Tests dense + sparse score fusion, category filtering, and out-of-domain rejection.
-5. **Prompt Defense**: Tests prompt injection isolation and emergency distress word interception.
-6. **Domain Evaluation Benchmark**: Evaluates grounded answers for earthquake, flood, and landslide queries, citation accuracy, and refusal to hallucinate unsupported advice.
 
 ---
 
-## 6. System Limitations & Safety Considerations
+## 7. Statutory Sources & Official Compliance
 
-1. **Static Official Guidance vs. Real-Time Radar**: The knowledge base contains verified standard operating procedures; it does not claim access to live Doppler weather radar, satellite telemetry, or active river discharge gauges.
-2. **Scanned PDF Ingestion**: Only PDFs containing an embedded digital text stream are parsed by the lightweight native engine. Scanned image-only PDFs require an upstream OCR pre-processor.
-3. **Hardware & Connectivity Independence**: Designed intentionally to run entirely on a standard CPU without GPU acceleration, paid subscriptions, or internet access.
-4. **Emergency Redirection**: Under no circumstances does the AI replace human emergency triage. In immediate life-safety peril, users are directed to official emergency services (`112` / `1078`).
+DisasterShield enforces strict fidelity to statutory Indian authorities:
+- **National Disaster Management Authority (NDMA)**: [https://ndma.gov.in](https://ndma.gov.in)
+- **Geological Survey of India (GSI)**: [https://www.gsi.gov.in](https://www.gsi.gov.in)
+- **Central Water Commission (CWC)**: [http://cwc.gov.in](http://cwc.gov.in)
+- **National Disaster Response Force (NDRF)**: 24/7 Control Room `1078`
+- **Emergency Response Support System (ERSS)**: Universal Pan-India Helpline `112`

@@ -11,10 +11,10 @@ Timestamp: 2026-10-22
 =================================================================
   DISASTERSHIELD — OFFICIAL GUIDANCE CHATBOT TRANSCRIPT
   Scenario: Earthquake
-  Generated On: 2026-10-22 11:48:51
+  Generated On: 2026-10-27 22:25:23
 =================================================================
 
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 1 Assessment (URGENT):
   Q: Where are you currently located right now?
   Note: Your physical location dictates the safest immediate action during seismic activity.
@@ -23,10 +23,10 @@ Timestamp: 2026-10-22
     * Outdoors (Street / Open space / Alley)
     * Inside a moving or stopped motor vehicle
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Inside a building (House / Apartment / Office)
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 2 Assessment (CRITICAL):
   Q: What is the immediate situation inside the building?
   Note: Assess whether ground shaking is actively occurring or if you have suffered structural collapse.
@@ -35,10 +35,10 @@ Timestamp: 2026-10-22
     * Shaking has stopped; inspecting structural integrity
     * Trapped under debris, rubble, or heavy furniture
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Trapped under debris, rubble, or heavy furniture
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 4 Assessment (CRITICAL):
   Q: Assess your physical mobility and respiratory environment under the debris:
   Note: Preserving oxygen, preventing dust inhalation, and signaling without exhaust are critical for survival.
@@ -46,10 +46,10 @@ Timestamp: 2026-10-22
     * Airway open, can tap objects or have a mobile/whistle
     * Dense dust, smoke, or constricted breathing space
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Airway open, can tap objects or have a mobile/whistle
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   >>> STATUS: SEARCH & RESCUE SIGNALING PROTOCOL <<<
   Summary: Trapped under debris with intact airway. Conserve physical energy and oxygen while signaling rescuers.
 
@@ -82,10 +82,10 @@ Timestamp: 2026-10-22
 =================================================================
   DISASTERSHIELD — OFFICIAL GUIDANCE CHATBOT TRANSCRIPT
   Scenario: Earthquake
-  Generated On: 2026-10-22 11:48:51
+  Generated On: 2026-10-27 22:25:23
 =================================================================
 
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 1 Assessment (URGENT):
   Q: Where are you currently located right now?
   Note: Your physical location dictates the safest immediate action during seismic activity.
@@ -94,10 +94,10 @@ Timestamp: 2026-10-22
     * Outdoors (Street / Open space / Alley)
     * Inside a moving or stopped motor vehicle
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Outdoors (Street / Open space / Alley)
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 2 Assessment (URGENT):
   Q: What are your immediate physical surroundings outdoors?
   Note: Falling glass, masonry, billboards, and downed electrical lines are the top outdoor seismic hazards.
@@ -106,10 +106,10 @@ Timestamp: 2026-10-22
     * Open field, wide park, sports ground, or open agricultural field
     * Near steep hillsides, cliffs, road cuttings, or coastal shoreline
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: High-density street with tall buildings, glass facades, or power poles
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 3 Assessment (CRITICAL):
   Q: Are live power cables down or is masonry actively falling from facades?
   Note: Step potential from fallen electrical cables can electrocute you even at a distance.
@@ -117,10 +117,10 @@ Timestamp: 2026-10-22
     * Downed electrical cables or transformer sparks visible
     * Falling glass/parapets; need immediate trajectory protection
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Downed electrical cables or transformer sparks visible
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   >>> STATUS: DOWNED HIGH-VOLTAGE CABLE PROTOCOL <<<
   Summary: Downed electrical cables pose extreme electrocution risk via step potential through the ground.
 
@@ -150,10 +150,10 @@ Timestamp: 2026-10-22
 =================================================================
   DISASTERSHIELD — OFFICIAL GUIDANCE CHATBOT TRANSCRIPT
   Scenario: Flood & Flash Flood
-  Generated On: 2026-10-22 11:48:51
+  Generated On: 2026-10-27 22:25:23
 =================================================================
 
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 1 Assessment (URGENT):
   Q: What is your current location and setting regarding the flood situation?
   Note: Flood response differs fundamentally whether you are inside a shelter, traveling on foot, or inside a vehicle.
@@ -162,10 +162,10 @@ Timestamp: 2026-10-22
     * Outdoors on foot (Road, alley, open terrain, or riverbank)
     * Inside a motor vehicle (Car, two-wheeler, or commercial transport)
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Inside a motor vehicle (Car, two-wheeler, or commercial transport)
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 2 Assessment (CRITICAL):
   Q: What is the vehicle's exact situation on the flooded roadway?
   Note: Over half of all flood fatalities occur inside vehicles. 30 cm (12 inches) of water can float most passenger cars.
@@ -174,10 +174,10 @@ Timestamp: 2026-10-22
     * Vehicle has stalled / engine cut out in rising water
     * Vehicle is floating or actively being swept by current
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Driving towards a waterlogged or submerged section of the road
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   >>> STATUS: MOTORIST SAFETY: TURN AROUND, DON'T DROWN <<<
   Summary: Approaching waterlogged roadway. Never drive through flooded roads regardless of vehicle size.
 
@@ -209,10 +209,10 @@ Timestamp: 2026-10-22
 =================================================================
   DISASTERSHIELD — OFFICIAL GUIDANCE CHATBOT TRANSCRIPT
   Scenario: Flood & Flash Flood
-  Generated On: 2026-10-22 11:48:51
+  Generated On: 2026-10-27 22:25:23
 =================================================================
 
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 1 Assessment (URGENT):
   Q: What is your current location and setting regarding the flood situation?
   Note: Flood response differs fundamentally whether you are inside a shelter, traveling on foot, or inside a vehicle.
@@ -221,10 +221,10 @@ Timestamp: 2026-10-22
     * Outdoors on foot (Road, alley, open terrain, or riverbank)
     * Inside a motor vehicle (Car, two-wheeler, or commercial transport)
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Inside a house, apartment, or commercial building
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 2 Assessment (CRITICAL):
   Q: How high has the water risen inside or around your building?
   Note: Water depth and rate of rise determine whether you should vertically evacuate to upper levels or signal for boat rescue.
@@ -233,10 +233,10 @@ Timestamp: 2026-10-22
     * Water is rising rapidly (Knee-to-waist deep or fast flash surge)
     * Ground floor is submerged; stranded on upper floor or rooftop
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Water is beginning to seep into the ground floor (Ankle deep / < 6 inches)
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 3 Assessment (CRITICAL):
   Q: Where is your main electrical distribution board located relative to the water?
   Note: Electrocution through water is one of the most common causes of indoor flood deaths.
@@ -244,10 +244,10 @@ Timestamp: 2026-10-22
     * Main breaker is high, dry, and safely accessible without standing in water
     * Water has reached the electrical panel or wiring is submerged
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Water has reached the electrical panel or wiring is submerged
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   >>> STATUS: EXTREME ELECTROCUTION DANGER — EVACUATE IMMEDIATELY <<<
   Summary: Water has contacted electrical fixtures. Standing in or touching this water carries severe risk of fatal electrocution.
 
@@ -280,10 +280,10 @@ Timestamp: 2026-10-22
 =================================================================
   DISASTERSHIELD — OFFICIAL GUIDANCE CHATBOT TRANSCRIPT
   Scenario: Landslide & Debris Flow
-  Generated On: 2026-10-22 11:48:51
+  Generated On: 2026-10-27 22:25:23
 =================================================================
 
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 1 Assessment (URGENT):
   Q: What is the current phase of the landslide event you are experiencing?
   Note: Landslides range from subtle pre-failure warning indicators to violent high-velocity debris avalanches.
@@ -292,10 +292,10 @@ Timestamp: 2026-10-22
     * Active landslide or debris flow in progress right now
     * Slide has just stopped; assessing damage, trapped persons, or secondary slide risks
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Active landslide or debris flow in progress right now
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 2 Assessment (CRITICAL):
   Q: Where are you situated while the mass movement / debris flow is taking place?
   Note: Your physical environment dictates whether lateral flight or impact-protective curling is possible.
@@ -304,10 +304,10 @@ Timestamp: 2026-10-22
     * Trapped inside a building as debris impacts exterior walls
     * Inside a vehicle on a hill road as slide occurs nearby
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Outdoors directly in the vicinity or path of moving earth and debris
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 3 Assessment (CRITICAL):
   Q: Can you immediately sprint sideways (laterally) out of the debris channel?
   Note: Debris flows channel down ravines and gullies at 30 to 80 km/h. Moving perpendicular to the flow saves lives.
@@ -315,10 +315,10 @@ Timestamp: 2026-10-22
     * Yes, clear lateral path away from the gully onto stable ridge or high ground
     * No escape path; debris is closing in or terrain is too steep to run
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Yes, clear lateral path away from the gully onto stable ridge or high ground
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   >>> STATUS: LIFE-OR-DEATH: LATERAL SPRINT AWAY FROM PATH <<<
   Summary: Active slide in progress outdoors. Escape PERPENDICULAR to the flow direction onto stable high ground.
 
@@ -350,10 +350,10 @@ Timestamp: 2026-10-22
 =================================================================
   DISASTERSHIELD — OFFICIAL GUIDANCE CHATBOT TRANSCRIPT
   Scenario: Landslide & Debris Flow
-  Generated On: 2026-10-22 11:48:51
+  Generated On: 2026-10-27 22:25:23
 =================================================================
 
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 1 Assessment (URGENT):
   Q: What is the current phase of the landslide event you are experiencing?
   Note: Landslides range from subtle pre-failure warning indicators to violent high-velocity debris avalanches.
@@ -362,10 +362,10 @@ Timestamp: 2026-10-22
     * Active landslide or debris flow in progress right now
     * Slide has just stopped; assessing damage, trapped persons, or secondary slide risks
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: Early warning signs detected (New cracks in walls/ground, rumbling, sticking doors)
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 2 Assessment (URGENT):
   Q: Where are you observing these landslide early warning signs?
   Note: Structural foundation shifting requires different evacuation precautions than mountain roadway anomalies.
@@ -373,10 +373,10 @@ Timestamp: 2026-10-22
     * At home / building located on or directly below a hill slope
     * Traveling along a mountain road or ghat section
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: At home / building located on or directly below a hill slope
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   Step 3 Assessment (CRITICAL):
   Q: Which specific warning signs are visible around the building?
   Note: Sudden ground seepage and widening tension cracks indicate imminent slope shear failure.
@@ -384,10 +384,10 @@ Timestamp: 2026-10-22
     * New widening ground cracks, muddy water springs emerging, or tilting trees/poles
     * Minor interior plaster cracks only, during prolonged heavy monsoon rainfall
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] USER:
+[2026-10-27 22:25:23] USER:
   A: New widening ground cracks, muddy water springs emerging, or tilting trees/poles
 -----------------------------------------------------------------
-[2026-10-22 11:48:51] DISASTERSHIELD BOT:
+[2026-10-27 22:25:23] DISASTERSHIELD BOT:
   >>> STATUS: IMMEDIATE HILLSIDE PREEMPTIVE EVACUATION <<<
   Summary: Widening ground tension cracks and muddy seepage indicate that the slope is on the verge of shear failure.
 
