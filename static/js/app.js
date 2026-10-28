@@ -58,6 +58,12 @@ function switchTab(targetTabId) {
     if (pane) pane.classList.toggle('active', tab === targetTabId);
   });
 
+  // Requirement 7: Hide footer on mobile for all views except landing page
+  const footer = document.querySelector('.app-footer');
+  if (footer) {
+    footer.classList.toggle('hide-on-mobile', targetTabId !== 'home');
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   // If switching to flowchart tab, refresh flowchart
@@ -92,11 +98,24 @@ async function startDisasterChat(disasterId) {
     AppState.isComplete = false;
     AppState.history = session.history;
 
-    // Update Chat UI Header
-    document.getElementById('chatDisasterBadge').textContent = session.disaster_name;
-    document.getElementById('chatDisasterTitle').textContent = `${session.disaster_name} Safety Assessment`;
-    document.getElementById('chatStepTracker').textContent = `Step ${session.step} of 4`;
-    document.getElementById('chatActiveIndicator').style.display = 'inline-block';
+    // Update Chat UI Header (Desktop & Mobile)
+    const badge = document.getElementById('chatDisasterBadge');
+    if (badge) badge.textContent = session.disaster_name;
+
+    const title = document.getElementById('chatDisasterTitle');
+    if (title) title.textContent = `${session.disaster_name} Safety Assessment`;
+
+    const tracker = document.getElementById('chatStepTracker');
+    if (tracker) tracker.textContent = `Step ${session.step} of 4`;
+
+    const activeInd = document.getElementById('chatActiveIndicator');
+    if (activeInd) activeInd.style.display = 'inline-block';
+
+    const mobTitle = document.getElementById('chatMobileDisasterTitle');
+    if (mobTitle) mobTitle.textContent = `${session.disaster_name} Safety`;
+
+    const mobTracker = document.getElementById('chatMobileStepTracker');
+    if (mobTracker) mobTracker.textContent = `Step ${session.step} of 4`;
 
     // Reset Chat Messages Container
     const messagesList = document.getElementById('chatMessagesList');
@@ -136,7 +155,7 @@ function renderBotQuestion(node) {
   `;
 
   messagesList.appendChild(msgDiv);
-  scrollChatToBottom();
+  scrollChatToBottom(msgDiv);
 
   // Render selectable buttons in bottom tray
   renderOptionButtons(node.options || []);
@@ -194,7 +213,10 @@ async function handleOptionClick(optionId, optionText) {
     AppState.isComplete = stepResult.is_complete;
     AppState.history = stepResult.history;
 
-    document.getElementById('chatStepTracker').textContent = `Step ${stepResult.step} of 4`;
+    const tracker = document.getElementById('chatStepTracker');
+    if (tracker) tracker.textContent = `Step ${stepResult.step} of 4`;
+    const mobTracker = document.getElementById('chatMobileStepTracker');
+    if (mobTracker) mobTracker.textContent = `Step ${stepResult.step} of 4`;
 
     if (stepResult.is_complete) {
       // Terminal Guidance reached!
@@ -228,7 +250,7 @@ function renderUserAnswer(text) {
   `;
 
   messagesList.appendChild(msgDiv);
-  scrollChatToBottom();
+  scrollChatToBottom(msgDiv);
 }
 
 function renderTerminalGuidance(guidance) {
@@ -357,7 +379,7 @@ function renderTerminalGuidance(guidance) {
   `;
 
   messagesList.appendChild(container);
-  scrollChatToBottom();
+  scrollChatToBottom(container);
 }
 
 function renderTerminalTray() {
@@ -390,13 +412,19 @@ function renderTerminalTray() {
   document.getElementById('btnCopyTranscriptTray').addEventListener('click', copyTranscript);
 }
 
-function scrollChatToBottom() {
+function scrollChatToBottom(targetElem) {
   const viewport = document.getElementById('chatViewport');
-  if (viewport) {
-    setTimeout(() => {
+  const messagesList = document.getElementById('chatMessagesList');
+  if (!viewport) return;
+  setTimeout(() => {
+    const target = targetElem || (messagesList ? messagesList.lastElementChild : null);
+    if (target && target.offsetTop !== undefined) {
+      const scrollPos = Math.max(0, target.offsetTop - 12);
+      viewport.scrollTo({ top: scrollPos, behavior: 'smooth' });
+    } else {
       viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
-    }, 50);
-  }
+    }
+  }, 60);
 }
 
 // ==========================================================================
@@ -690,15 +718,22 @@ document.addEventListener('DOMContentLoaded', () => {
     switchTab('sources');
   });
 
-  // Setup Disaster Cards click handlers
-  document.querySelectorAll('.start-chat-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const disaster = e.currentTarget.dataset.disaster;
+  // Setup Disaster Cards click handlers (whole card tappable)
+  document.querySelectorAll('.disaster-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      const disaster = card.dataset.disaster;
       if (disaster) startDisasterChat(disaster);
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const disaster = card.dataset.disaster;
+        if (disaster) startDisasterChat(disaster);
+      }
     });
   });
 
-  // Setup Chat Header Action Buttons
+  // Setup Chat Header Action Buttons (Desktop)
   const btnRestart = document.getElementById('btnRestartChat');
   if (btnRestart) btnRestart.addEventListener('click', () => {
     if (AppState.activeDisasterId) startDisasterChat(AppState.activeDisasterId);
@@ -720,6 +755,125 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btnDownload = document.getElementById('btnDownloadTranscript');
   if (btnDownload) btnDownload.addEventListener('click', downloadTranscript);
+
+  // Setup Mobile Compact Controls & Overflow Menu (Item 1)
+  const btnMobileRestart = document.getElementById('btnMobileRestartChat');
+  if (btnMobileRestart) btnMobileRestart.addEventListener('click', () => {
+    if (AppState.activeDisasterId) startDisasterChat(AppState.activeDisasterId);
+  });
+
+  const btnChatOverflow = document.getElementById('btnChatOverflow');
+  const chatOverflowMenu = document.getElementById('chatOverflowMenu');
+  if (btnChatOverflow && chatOverflowMenu) {
+    btnChatOverflow.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isHidden = chatOverflowMenu.style.display === 'none' || !chatOverflowMenu.style.display;
+      chatOverflowMenu.style.display = isHidden ? 'flex' : 'none';
+      btnChatOverflow.setAttribute('aria-expanded', String(isHidden));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!chatOverflowMenu.contains(e.target) && e.target !== btnChatOverflow) {
+        chatOverflowMenu.style.display = 'none';
+        btnChatOverflow.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  const btnMobileChange = document.getElementById('btnMobileChangeDisaster');
+  if (btnMobileChange) btnMobileChange.addEventListener('click', () => {
+    if (chatOverflowMenu) chatOverflowMenu.style.display = 'none';
+    switchTab('home');
+  });
+
+  const btnMobileFlowchart = document.getElementById('btnMobileViewFlowchart');
+  if (btnMobileFlowchart) btnMobileFlowchart.addEventListener('click', () => {
+    if (chatOverflowMenu) chatOverflowMenu.style.display = 'none';
+    switchTab('flowchart');
+    if (window.FlowchartViewer && AppState.activeDisasterId) {
+      window.FlowchartViewer.loadFlowchart(AppState.activeDisasterId);
+    }
+  });
+
+  const btnMobileCopy = document.getElementById('btnMobileCopyTranscript');
+  if (btnMobileCopy) btnMobileCopy.addEventListener('click', () => {
+    if (chatOverflowMenu) chatOverflowMenu.style.display = 'none';
+    copyTranscript();
+  });
+
+  const btnMobileDown = document.getElementById('btnMobileDownloadTranscript');
+  if (btnMobileDown) btnMobileDown.addEventListener('click', () => {
+    if (chatOverflowMenu) chatOverflowMenu.style.display = 'none';
+    downloadTranscript();
+  });
+
+  const btnMobileRestartMenu = document.getElementById('btnMobileRestartMenu');
+  if (btnMobileRestartMenu) btnMobileRestartMenu.addEventListener('click', () => {
+    if (chatOverflowMenu) chatOverflowMenu.style.display = 'none';
+    if (AppState.activeDisasterId) startDisasterChat(AppState.activeDisasterId);
+  });
+
+  // Setup Emergency Helplines Modal (Item 4)
+  const btnCall112 = document.getElementById('btnCall112');
+  const helplinesModal = document.getElementById('emergencyHelplinesModal');
+  const btnCloseHelplines = document.getElementById('btnCloseHelplines');
+  const btnDismissHelplines = document.getElementById('btnDismissHelplines');
+
+  function openHelplines() {
+    if (helplinesModal) helplinesModal.style.display = 'flex';
+  }
+  function closeHelplines() {
+    if (helplinesModal) helplinesModal.style.display = 'none';
+  }
+
+  if (btnCall112) btnCall112.addEventListener('click', openHelplines);
+  if (btnCloseHelplines) btnCloseHelplines.addEventListener('click', closeHelplines);
+  if (btnDismissHelplines) btnDismissHelplines.addEventListener('click', closeHelplines);
+  if (helplinesModal) {
+    helplinesModal.addEventListener('click', (e) => {
+      if (e.target === helplinesModal) closeHelplines();
+    });
+  }
+
+  // Setup Mobile Nav Toggle (Item 6)
+  const btnNavToggle = document.getElementById('btnNavToggle');
+  const mainNavLinks = document.getElementById('mainNavLinks');
+  if (btnNavToggle && mainNavLinks) {
+    btnNavToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mainNavLinks.classList.toggle('mobile-open');
+      btnNavToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        mainNavLinks.classList.remove('mobile-open');
+        btnNavToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!mainNavLinks.contains(e.target) && e.target !== btnNavToggle) {
+        mainNavLinks.classList.remove('mobile-open');
+        btnNavToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Escape key closes modals and dropdowns
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeHelplines();
+      if (chatOverflowMenu) chatOverflowMenu.style.display = 'none';
+      if (mainNavLinks) mainNavLinks.classList.remove('mobile-open');
+    }
+  });
+
+  // Default About section collapsed on small screens (Item 5)
+  const aboutCollapsible = document.getElementById('aboutCollapsible');
+  if (aboutCollapsible && window.innerWidth <= 640) {
+    aboutCollapsible.removeAttribute('open');
+  }
 
   // Setup Checklist reset button
   const btnResetChk = document.getElementById('btnResetChecklist');

@@ -51,7 +51,23 @@
         </div>
       </a>
 
-      <nav class="nav-links" role="navigation" aria-label="Main Navigation">
+      <!-- PERSISTENT EMERGENCY CALL BUTTON & MOBILE NAV TOGGLE -->
+      <div class="nav-right-actions">
+        <button class="call-112-btn" id="btnCall112" aria-label="Emergency Helplines - Call 112" title="Tap to call official emergency helplines">
+          <span class="call-112-badge" aria-hidden="true">🚨</span>
+          <span class="call-112-label">Call 112</span>
+        </button>
+
+        <button class="mobile-nav-toggle" id="btnNavToggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-toggle-icon" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="nav-links" id="mainNavLinks" role="navigation" aria-label="Main Navigation">
         <button class="nav-btn active" data-tab="home" id="tabHomeBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           <span>Assessment</span>
@@ -95,7 +111,7 @@
             strictly derived from statutory guidelines published by NDMA, GSI, CWC, and NDRF.
           </p>
 
-          <div class="hero-features-strip">
+          <div class="hero-features-strip desktop-features-strip">
             <div class="feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
               <span>100% Deterministic Rule-Based Emergency Trees</span>
@@ -122,7 +138,7 @@
 
         <div class="cards-grid" id="disasterCardsGrid">
           <!-- CARD 1: EARTHQUAKE -->
-          <article class="disaster-card" data-disaster="earthquake">
+          <article class="disaster-card" data-disaster="earthquake" role="button" tabindex="0" aria-label="Start Earthquake Assessment">
             <div class="card-badge seismic">Seismic Emergency</div>
             <div class="card-icon-wrapper seismic-bg">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-icon">
@@ -138,14 +154,14 @@
               <span class="meta-tag">USAR Signaling</span>
               <span class="meta-tag">13 Decision Paths</span>
             </div>
-            <button class="btn btn-primary start-chat-btn" data-disaster="earthquake" id="btnStartEarthquake">
+            <button class="btn btn-primary start-chat-btn" data-disaster="earthquake" id="btnStartEarthquake" tabindex="-1">
               <span>Start Earthquake Assessment</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
           </article>
 
           <!-- CARD 2: FLOOD -->
-          <article class="disaster-card" data-disaster="flood">
+          <article class="disaster-card" data-disaster="flood" role="button" tabindex="0" aria-label="Start Flood Assessment">
             <div class="card-badge hydrological">Hydrological Threat</div>
             <div class="card-icon-wrapper hydrological-bg">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-icon">
@@ -161,14 +177,14 @@
               <span class="meta-tag">Electrical Hazard</span>
               <span class="meta-tag">12 Decision Paths</span>
             </div>
-            <button class="btn btn-primary start-chat-btn" data-disaster="flood" id="btnStartFlood">
+            <button class="btn btn-primary start-chat-btn" data-disaster="flood" id="btnStartFlood" tabindex="-1">
               <span>Start Flood Assessment</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
           </article>
 
           <!-- CARD 3: LANDSLIDE -->
-          <article class="disaster-card" data-disaster="landslide">
+          <article class="disaster-card" data-disaster="landslide" role="button" tabindex="0" aria-label="Start Landslide Assessment">
             <div class="card-badge geological">Geological Hazard</div>
             <div class="card-icon-wrapper geological-bg">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-icon">
@@ -186,7 +202,7 @@
               <span class="meta-tag">Debris Dams</span>
               <span class="meta-tag">10 Decision Paths</span>
             </div>
-            <button class="btn btn-primary start-chat-btn" data-disaster="landslide" id="btnStartLandslide">
+            <button class="btn btn-primary start-chat-btn" data-disaster="landslide" id="btnStartLandslide" tabindex="-1">
               <span>Start Landslide Assessment</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
@@ -194,38 +210,46 @@
         </div>
       </section>
 
-      <!-- WHY DETERMINISTIC RULE-BASED SECTION -->
+      <!-- COLLAPSIBLE ABOUT & PROTOCOLS SECTION BELOW CARDS -->
       <section class="container academic-overview-section">
-        <div class="academic-card">
-          <div class="academic-header">
-            <div class="academic-badge">Life-Safety Architecture</div>
-            <h3>Why Deterministic Rule-Based Expert Systems for Emergency Guidance?</h3>
-          </div>
-          <div class="academic-body">
-            <p>
-              In life-or-death disaster situations, non-deterministic generative models present grave risks: hallucinated phone numbers, speculative evacuation advice, and high network latency. 
-              <strong>DisasterShield</strong> employs a pure deterministic decision-tree rule engine:
-            </p>
-            <div class="academic-grid">
-              <div class="academic-point">
-                <strong>100% Deterministic &amp; Transparent</strong>
-                <span>Every guidance outcome maps to a verified statutory safety path with unambiguous, auditable decision branches.</span>
-              </div>
-              <div class="academic-point">
-                <strong>100% Offline Capable</strong>
-                <span>Zero dependency on internet connectivity, external cloud APIs, or paid token services during active infrastructure failures.</span>
-              </div>
-              <div class="academic-point">
-                <strong>Zero Hallucinated Hotlines</strong>
-                <span>Exclusively references verified official national emergency helplines: 112 (ERSS), 1078 (NDRF), 101 (Fire), and 108 (Ambulance).</span>
-              </div>
-              <div class="academic-point">
-                <strong>Multi-Level Urgency Triage</strong>
-                <span>Dynamically classifies user situations across Normal, Precautionary, Urgent, and Critical severity levels with immediate action directives.</span>
+        <details class="about-collapsible" id="aboutCollapsible" open>
+          <summary class="about-summary">
+            <div class="about-summary-left">
+              <span class="academic-badge">Architecture &amp; Protocols</span>
+              <span class="about-summary-title">About DisasterShield Deterministic System</span>
+            </div>
+            <span class="about-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="academic-card about-card-body">
+            <div class="academic-header">
+              <h3>Why Deterministic Rule-Based Expert Systems for Emergency Guidance?</h3>
+            </div>
+            <div class="academic-body">
+              <p>
+                In life-or-death disaster situations, non-deterministic generative models present grave risks: hallucinated phone numbers, speculative evacuation advice, and high network latency. 
+                <strong>DisasterShield</strong> employs a pure deterministic decision-tree rule engine:
+              </p>
+              <div class="academic-grid">
+                <div class="academic-point">
+                  <strong>100% Deterministic &amp; Transparent</strong>
+                  <span>Every guidance outcome maps to a verified statutory safety path with unambiguous, auditable decision branches.</span>
+                </div>
+                <div class="academic-point">
+                  <strong>100% Offline Capable</strong>
+                  <span>Zero dependency on internet connectivity, external cloud APIs, or paid token services during active infrastructure failures.</span>
+                </div>
+                <div class="academic-point">
+                  <strong>Zero Hallucinated Hotlines</strong>
+                  <span>Exclusively references verified official national emergency helplines: 112 (ERSS), 1078 (NDRF), 101 (Fire), and 108 (Ambulance).</span>
+                </div>
+                <div class="academic-point">
+                  <strong>Multi-Level Urgency Triage</strong>
+                  <span>Dynamically classifies user situations across Normal, Precautionary, Urgent, and Critical severity levels with immediate action directives.</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </details>
       </section>
     </section>
 
@@ -240,7 +264,7 @@
             <div class="chat-step-tracker" id="chatStepTracker">Step 1 of 4</div>
           </div>
 
-          <div class="chat-actions-group">
+          <div class="chat-actions-group chat-actions-desktop">
             <button class="btn btn-outline" id="btnRestartChat" title="Reset the assessment to the beginning">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
               <span>Restart</span>
@@ -262,6 +286,44 @@
               <span>Download (.txt)</span>
             </button>
           </div>
+
+          <!-- MOBILE COMPACT CONTROLS (ONE compact row on mobile) -->
+          <div class="chat-mobile-controls">
+            <button class="chat-icon-btn" id="btnMobileRestartChat" aria-label="Restart Assessment" title="Restart Assessment">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="icon-sm" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+            <div class="chat-mobile-center">
+              <span class="chat-mobile-title" id="chatMobileDisasterTitle">Earthquake Safety</span>
+              <span class="chat-mobile-step-badge" id="chatMobileStepTracker">Step 1 of 4</span>
+            </div>
+            <div class="chat-overflow-wrap">
+              <button class="chat-icon-btn" id="btnChatOverflow" aria-label="More assessment actions" aria-haspopup="true" aria-expanded="false" title="Menu">
+                <span class="overflow-dots" aria-hidden="true">⋯</span>
+              </button>
+              <div class="chat-overflow-dropdown" id="chatOverflowMenu" role="menu" style="display:none;">
+                <button class="overflow-menu-item" id="btnMobileChangeDisaster" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  <span>Change Disaster</span>
+                </button>
+                <button class="overflow-menu-item" id="btnMobileViewFlowchart" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                  <span>View Tree</span>
+                </button>
+                <button class="overflow-menu-item" id="btnMobileCopyTranscript" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Copy Transcript</span>
+                </button>
+                <button class="overflow-menu-item" id="btnMobileDownloadTranscript" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Download (.txt)</span>
+                </button>
+                <button class="overflow-menu-item" id="btnMobileRestartMenu" role="menuitem">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="icon-sm"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  <span>Restart Assessment</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- CHAT CONVERSATION CONTAINER -->
@@ -275,7 +337,7 @@
         <div class="chat-options-tray" id="chatOptionsTray" aria-label="Selectable responses">
           <div class="options-header">
             <span class="options-prompt-label">Select your current situation:</span>
-            <span class="options-hint">Click an option below to advance the guidance path</span>
+            <span class="options-hint">Tap an option below to advance the guidance path</span>
           </div>
           <div class="options-buttons-grid" id="optionsButtonsGrid">
             <!-- Option buttons rendered dynamically -->
@@ -407,6 +469,55 @@
     </section>
 
   </main>
+
+  <!-- EMERGENCY HELPLINES BOTTOM SHEET MODAL (Accessible on every screen via Call 112 button) -->
+  <div class="emergency-modal-backdrop" id="emergencyHelplinesModal" role="dialog" aria-modal="true" aria-labelledby="helplineSheetTitle" style="display:none;">
+    <div class="emergency-sheet">
+      <div class="emergency-sheet-header">
+        <div class="emergency-sheet-title-group">
+          <span class="emergency-pulse-dot" aria-hidden="true"></span>
+          <h3 id="helplineSheetTitle" class="emergency-sheet-title">🚨 Emergency Helplines (Pan-India)</h3>
+        </div>
+        <button class="emergency-sheet-close" id="btnCloseHelplines" aria-label="Close Emergency Helplines">✕</button>
+      </div>
+      <p class="emergency-sheet-sub">Tap any verified national helpline to dial immediately:</p>
+      <div class="emergency-hotlines-list">
+        <a href="tel:112" class="emergency-call-row priority-112">
+          <div class="call-row-num">112</div>
+          <div class="call-row-info">
+            <strong>National Emergency Support (ERSS)</strong>
+            <span>All Emergencies • Police • Fire • Ambulance</span>
+          </div>
+          <div class="call-row-action">📞 Tap to Call</div>
+        </a>
+        <a href="tel:1078" class="emergency-call-row">
+          <div class="call-row-num">1078</div>
+          <div class="call-row-info">
+            <strong>NDRF Helpline</strong>
+            <span>National Disaster Response Force (Search &amp; Rescue)</span>
+          </div>
+          <div class="call-row-action">📞 Call</div>
+        </a>
+        <a href="tel:101" class="emergency-call-row">
+          <div class="call-row-num">101</div>
+          <div class="call-row-info">
+            <strong>Fire &amp; Rescue Service</strong>
+            <span>Active Fire Hazards, Gas Leaks &amp; Trapped Victims</span>
+          </div>
+          <div class="call-row-action">📞 Call</div>
+        </a>
+        <a href="tel:108" class="emergency-call-row">
+          <div class="call-row-num">108</div>
+          <div class="call-row-info">
+            <strong>Emergency Medical Ambulance</strong>
+            <span>Disaster Trauma Triage &amp; Medical Evacuation</span>
+          </div>
+          <div class="call-row-action">📞 Call</div>
+        </a>
+      </div>
+      <button class="btn btn-secondary btn-full-width mt-2" id="btnDismissHelplines">Close Helplines</button>
+    </div>
+  </div>
 
   <!-- TOAST NOTIFICATION -->
   <div class="toast-notification" id="toastNotification" role="alert" aria-live="assertive">
