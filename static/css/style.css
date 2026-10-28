@@ -1830,20 +1830,25 @@ body {
 .call-112-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   background-color: var(--critical-red);
   color: #ffffff;
   border: 1.5px solid #ef4444;
   border-radius: var(--radius-sm);
-  padding: 0.45rem 0.85rem;
+  padding: 0.4rem 0.85rem;
   font-weight: 700;
   font-size: 0.875rem;
   font-family: inherit;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
   transition: all 0.15s ease;
-  min-height: 40px;
+  min-height: 38px;
+  height: 38px;
   text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  position: relative;
 }
 
 .call-112-btn:hover {
@@ -1855,10 +1860,13 @@ body {
 .call-112-badge {
   font-size: 1rem;
   line-height: 1;
+  display: inline-block;
 }
 
 .call-112-label {
   font-weight: 700;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .mobile-nav-toggle {
@@ -2175,28 +2183,81 @@ body {
     display: flex;
     align-items: center;
     gap: 0.45rem;
+    flex-shrink: 0;
   }
 
   .call-112-btn {
-    min-height: 48px;
-    min-width: 48px;
-    padding: 0.35rem 0.65rem;
+    height: 38px;
+    min-height: 38px;
+    min-width: auto;
+    padding: 0 0.75rem;
     font-size: 0.875rem;
     border-radius: 6px;
     background-color: #dc2626;
     color: #ffffff;
     font-weight: 700;
     box-shadow: 0 2px 4px rgba(220, 38, 38, 0.4);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    border: 1.5px solid #ef4444;
+  }
+
+  /* Expand tap target to at least 48x48px without visual bulk */
+  .call-112-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 48px;
+    min-height: 48px;
+    width: 100%;
+    height: 48px;
+  }
+
+  .call-112-badge {
+    font-size: 0.95rem;
+    line-height: 1;
+    display: inline-block;
+  }
+
+  .call-112-label {
+    white-space: nowrap;
+    font-weight: 700;
+    line-height: 1;
   }
 
   .mobile-nav-toggle {
     display: flex;
-    min-width: 48px;
-    min-height: 48px;
-    padding: 0.5rem;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
     border: 1px solid rgba(255, 255, 255, 0.25);
     background: rgba(255, 255, 255, 0.08);
     border-radius: 6px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .mobile-nav-toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 48px;
+    min-height: 48px;
+    width: 48px;
+    height: 48px;
   }
 
   .nav-links {
